@@ -189,7 +189,7 @@ DB.renderMpPuzzleStep = function () {
   }).join("");
 
   DB.appRoot.innerHTML =
-    '<div class="header"><div class="brand">Daily <span>Brainclub</span></div><div class="streak-pill">' + step.def.emoji + ' ' + DB.t("mp.run.label") + ' ' + (mp.index + 1) + '/' + mp.puzzles.length + '</div></div>' +
+    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="streak-pill">' + step.def.emoji + ' ' + DB.t("mp.run.label") + ' ' + (mp.index + 1) + '/' + mp.puzzles.length + '</div></div>' +
     '<div class="progress-row">' + dots + '</div>' +
     '<div class="timer-bar-track"><div class="timer-bar-fill" id="timerFill" style="width:100%"></div></div>' +
     '<div class="bonus-label" id="bonusLabel">' + DB.t("run.bonusRemaining", { s: DB.PUZZLE_SECONDS }) + '</div>' +

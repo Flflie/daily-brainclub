@@ -2,7 +2,7 @@
   "name": "daily-brainclub",
   "version": "1.0.0",
   "private": true,
-  "description": "Daily Brainclub - dagelijkse puzzelplatform",
+  "description": "Daily BrainClub - dagelijkse puzzelplatform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

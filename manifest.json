@@ -1,6 +1,6 @@
 {
-  "name": "Daily Brainclub",
-  "short_name": "Brainclub",
+  "name": "Daily BrainClub",
+  "short_name": "BrainClub",
   "description": "Dagelijkse puzzelplatform met woordzoeker, sudoku, geheugenspel en meer.",
   "start_url": "./index.html",
   "scope": "./",
