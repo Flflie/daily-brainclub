@@ -1,0 +1,11 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.florence.dailybrainclub",
+    "sha256_cert_fingerprints": [
+      "52:CC:C9:AF:AE:D0:19:BE:38:B0:00:8B:FC:A9:B9:78:DB:DE:65:8A:B0:D7:9A:49:36:C8:D9:36:D9:18:F9:3E",
+      "EF:1F:B4:A4:78:8F:C1:75:9E:9C:C5:7F:1C:3E:6A:2E:6A:49:AD:E1:02:17:57:23:63:02:7E:8F:1F:1D:D2:98"
+    ]
+  }
+}]

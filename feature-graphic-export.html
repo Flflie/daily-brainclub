@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+<svg id="src" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 500" width="1024" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="500" fill="url(#bg)"/>
+
+  <g opacity="0.18" fill="#ffffff">
+    <circle cx="920" cy="80" r="60"/>
+    <circle cx="60" cy="420" r="80"/>
+  </g>
+
+  <g transform="translate(120 250) rotate(-8) scale(1.15)" fill="#ffe08a" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" opacity="0.85">
+    <path d="M4 4 H24 C24 -4 40 -4 40 4 H60 V24 C68 24 68 40 60 40 V60 H40 C40 52 24 52 24 60 H4 V40 C12 40 12 24 4 24 Z" transform="translate(-30 -30)"/>
+  </g>
+  <g transform="translate(880 400) rotate(15) scale(1.0)" fill="#4fd1c5" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" opacity="0.85">
+    <path d="M4 4 H24 C24 -4 40 -4 40 4 H60 V24 C68 24 68 40 60 40 V60 H40 C40 52 24 52 24 60 H4 V40 C12 40 12 24 4 24 Z" transform="translate(-30 -30)"/>
+  </g>
+
+  <g transform="translate(220 250) scale(3.6) translate(-20 -26)">
+    <path d="M20 10 C14 4 4 6 2 14 C-4 14 -6 24 0 28 C-4 34 0 42 8 42 C8 48 16 50 20 46 C24 50 32 48 32 42 C40 42 44 34 40 28 C46 24 44 14 38 14 C36 6 26 4 20 10 Z" fill="#ffffff" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M20 10 Q17 26 20 46" fill="none" stroke="#ec4899" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M9 16 Q13 20 9 24" fill="none" stroke="#ec4899" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M31 16 Q27 20 31 24" fill="none" stroke="#ec4899" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M6 30 Q10 33 7 37" fill="none" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M34 30 Q30 33 33 37" fill="none" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+
+  <text x="420" y="230" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="72" font-weight="800" fill="#ffffff">Daily</text>
+  <text x="420" y="310" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="72" font-weight="800" fill="#ffe08a">BrainClub</text>
+  <text x="422" y="355" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="24" font-weight="600" fill="#ffffff" opacity="0.9">Speel, verzamel, bouw je streak op.</text>
+</svg>
+<script>
+function svgToPngDataUrl() {
+  return new Promise(function (resolve) {
+    var svg = document.getElementById('src');
+    var xml = new XMLSerializer().serializeToString(svg);
+    var svg64 = btoa(unescape(encodeURIComponent(xml)));
+    var img = new Image();
+    img.onload = function () {
+      var canvas = document.createElement('canvas');
+      canvas.width = 1024; canvas.height = 500;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, 1024, 500);
+      resolve(canvas.toDataURL('image/png').split(',')[1]);
+    };
+    img.src = 'data:image/svg+xml;base64,' + svg64;
+  });
+}
+window.getFeatureGraphicBase64 = svgToPngDataUrl;
+</script>
+</body>
+</html>
