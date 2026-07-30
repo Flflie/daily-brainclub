@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+<svg id="src" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <g transform="translate(256 262) scale(5.2) translate(-20 -26)">
+    <path d="M20 10 C14 4 4 6 2 14 C-4 14 -6 24 0 28 C-4 34 0 42 8 42 C8 48 16 50 20 46 C24 50 32 48 32 42 C40 42 44 34 40 28 C46 24 44 14 38 14 C36 6 26 4 20 10 Z" fill="#ffffff" stroke="#ffffff" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M20 10 Q17 26 20 46" fill="none" stroke="#ec4899" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M9 16 Q13 20 9 24" fill="none" stroke="#ec4899" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M31 16 Q27 20 31 24" fill="none" stroke="#ec4899" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M6 30 Q10 33 7 37" fill="none" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M34 30 Q30 33 33 37" fill="none" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(335 128) rotate(18) scale(0.85)" fill="#4ade80" stroke="#ffffff" stroke-width="4" stroke-linejoin="round">
+    <path d="M4 4 H24 C24 -4 40 -4 40 4 H60 V24 C68 24 68 40 60 40 V60 H40 C40 52 24 52 24 60 H4 V40 C12 40 12 24 4 24 Z"/>
+  </g>
+</svg>
+<script>
+function svgToPngDataUrl(size) {
+  return new Promise(function (resolve) {
+    var svg = document.getElementById('src');
+    var xml = new XMLSerializer().serializeToString(svg);
+    var svg64 = btoa(unescape(encodeURIComponent(xml)));
+    var img = new Image();
+    img.onload = function () {
+      var canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, size, size);
+      resolve(canvas.toDataURL('image/png').split(',')[1]);
+    };
+    img.src = 'data:image/svg+xml;base64,' + svg64;
+  });
+}
+window.getIconBase64 = function (size) { return svgToPngDataUrl(size); };
+</script>
+</body>
+</html>
