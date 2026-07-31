@@ -33,6 +33,7 @@ DB.renderHeader = function (state) {
       '</div>'
     : "";
   var lang = DB.currentLang();
+  var colorTheme = state.colorTheme || "auto";
   var settingsPanelHtml =
     '<div class="settings-panel" id="settingsPanel" hidden>' +
       '<div class="settings-row">' +
@@ -40,6 +41,14 @@ DB.renderHeader = function (state) {
         '<div class="settings-lang-switch">' +
           '<button class="lang-opt' + (lang === "nl" ? " active" : "") + '" data-lang="nl">NL</button>' +
           '<button class="lang-opt' + (lang === "en" ? " active" : "") + '" data-lang="en">EN</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="settings-row">' +
+        '<span>' + DB.t("settings.colorTheme") + '</span>' +
+        '<div class="settings-lang-switch">' +
+          '<button class="theme-opt' + (colorTheme === "light" ? " active" : "") + '" data-theme-choice="light">' + DB.t("settings.light") + '</button>' +
+          '<button class="theme-opt' + (colorTheme === "dark" ? " active" : "") + '" data-theme-choice="dark">' + DB.t("settings.dark") + '</button>' +
+          '<button class="theme-opt' + (colorTheme === "auto" ? " active" : "") + '" data-theme-choice="auto">' + DB.t("settings.system") + '</button>' +
         '</div>' +
       '</div>' +
       (state.firstName
@@ -343,6 +352,7 @@ DB.renderAchievements = function () {
     if (window.confirm(DB.t("ach.resetConfirm"))) {
       localStorage.removeItem(DB.STORAGE_KEY);
       DB.applyTheme(DB.loadState());
+      DB.applyColorTheme(DB.loadState());
       DB.renderHome();
     }
   });
@@ -547,6 +557,7 @@ DB.finishRun = function () {
 };
 
 DB.applyTheme(DB.loadState());
+DB.applyColorTheme(DB.loadState());
 DB.renderHome();
 
 window.DB = DB;

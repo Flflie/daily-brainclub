@@ -24,7 +24,8 @@ DB.defaultState = function () {
     activeAvatar: null,
     language: "nl",
     firstName: null,
-    deviceId: null
+    deviceId: null,
+    colorTheme: "auto"
   };
 };
 
@@ -507,6 +508,25 @@ DB.cycleItem = function (list, n) {
 DB.svgBackgroundUrl = function (svg) {
   var encoded = encodeURIComponent(svg).replace(/'/g, "%27");
   return "url('data:image/svg+xml," + encoded + "')";
+};
+
+DB.applyColorTheme = function (state) {
+  var root = document.documentElement;
+  var theme = state.colorTheme || "auto";
+  if (theme === "light" || theme === "dark") {
+    root.setAttribute("data-theme", theme);
+  } else {
+    root.removeAttribute("data-theme");
+  }
+};
+
+DB.setColorTheme = function (theme) {
+  var s = DB.loadState();
+  if (s.colorTheme === theme) return;
+  s.colorTheme = theme;
+  DB.saveState(s);
+  DB.applyColorTheme(s);
+  (DB.lastRender || DB.renderHome)();
 };
 
 DB.applyTheme = function (state) {

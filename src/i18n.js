@@ -58,6 +58,11 @@ DB.bindHeader = function () {
       DB.setLanguage(el.getAttribute("data-lang"));
     });
   });
+  document.querySelectorAll(".theme-opt").forEach(function (el) {
+    el.addEventListener("click", function () {
+      DB.setColorTheme(el.getAttribute("data-theme-choice"));
+    });
+  });
   var editNameBtn = document.getElementById("settingsEditName");
   if (editNameBtn) {
     editNameBtn.addEventListener("click", function () {
@@ -84,6 +89,10 @@ DB.UI = {
     "home.greeting": "Welkom terug, {name}! 👋",
 
     "settings.language": "Taal",
+    "settings.colorTheme": "Thema",
+    "settings.light": "Licht",
+    "settings.dark": "Donker",
+    "settings.system": "Systeem",
     "settings.name": "Naam",
     "settings.editName": "wijzigen",
 
@@ -285,6 +294,10 @@ DB.UI = {
     "home.greeting": "Welcome back, {name}! 👋",
 
     "settings.language": "Language",
+    "settings.colorTheme": "Theme",
+    "settings.light": "Light",
+    "settings.dark": "Dark",
+    "settings.system": "System",
     "settings.name": "Name",
     "settings.editName": "edit",
 

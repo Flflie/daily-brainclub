@@ -16,6 +16,30 @@
   --shadow: 0 4px 18px rgba(124, 58, 237, 0.10);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-1: #1e1a38;
+    --bg-2: #2b2350;
+    --bg-3: #201c42;
+    --surface: #241f42;
+    --surface-2: #322b56;
+    --text: #f0edff;
+    --text-dim: #a89fc9;
+    --shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg-1: #1e1a38;
+  --bg-2: #2b2350;
+  --bg-3: #201c42;
+  --surface: #241f42;
+  --surface-2: #322b56;
+  --text: #f0edff;
+  --text-dim: #a89fc9;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -172,11 +196,11 @@ h1, h2, h3 { margin: 0 0 8px; }
   top: 40px;
   right: 0;
   z-index: 20;
-  background: var(--card, #fff);
+  background: var(--surface);
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   padding: 12px;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .settings-row {
@@ -190,7 +214,7 @@ h1, h2, h3 { margin: 0 0 8px; }
   color: var(--text);
 }
 .settings-row + .settings-row {
-  border-top: 1px solid rgba(0,0,0,0.06);
+  border-top: 1px solid var(--surface-2);
 }
 
 .settings-lang-switch {
@@ -201,7 +225,7 @@ h1, h2, h3 { margin: 0 0 8px; }
   gap: 2px;
 }
 
-.lang-opt {
+.lang-opt, .theme-opt {
   border: none;
   background: none;
   color: var(--text-dim);
@@ -210,8 +234,9 @@ h1, h2, h3 { margin: 0 0 8px; }
   padding: 5px 10px;
   border-radius: 999px;
   cursor: pointer;
+  white-space: nowrap;
 }
-.lang-opt.active {
+.lang-opt.active, .theme-opt.active {
   background: var(--accent);
   color: #fff;
 }
