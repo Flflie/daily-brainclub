@@ -68,66 +68,54 @@ DB.AVATAR_LABELS = {
   en: { crown: "Golden Crown Avatar", knight: "Knight Avatar", wizard: "Wizard Avatar", astronaut: "Astronaut Avatar", captain: "Captain Avatar", explorer: "Explorer Avatar", champion: "Champion Avatar", master: "Master Avatar" }
 };
 
+DB.BRAINCLUB_SQ_LAYER = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'>" +
+  "<defs><g id='sq'>" +
+  "<rect x='3' y='3' width='34' height='34' rx='6' fill='none' stroke='currentColor' stroke-width='3'/>" +
+  "<text x='20' y='25' font-size='13' font-weight='700' text-anchor='middle' fill='currentColor'>abc</text>" +
+  "</g></defs>" +
+  "<g style='color:#a78bfa'><use href='#sq' transform='translate(420 70) rotate(-6) scale(1.4)'/></g>" +
+  "</svg>";
+
+DB.BRAINCLUB_TILE = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'>" +
+  "<defs>" +
+  "<path id='pc' d='M4 4 H24 C24 -4 40 -4 40 4 H60 V24 C68 24 68 40 60 40 V60 H40 C40 52 24 52 24 60 H4 V40 C12 40 12 24 4 24 Z'/>" +
+  "<g id='br'>" +
+  "<path d='M20 10 C14 4 4 6 2 14 C-4 14 -6 24 0 28 C-4 34 0 42 8 42 C8 48 16 50 20 46 C24 50 32 48 32 42 C40 42 44 34 40 28 C46 24 44 14 38 14 C36 6 26 4 20 10 Z' fill='#ff9db8' stroke='#e0648a' stroke-width='2.5' stroke-linejoin='round'/>" +
+  "<path d='M20 10 Q17 26 20 46' fill='none' stroke='#e0648a' stroke-width='2.5' stroke-linecap='round'/>" +
+  "<path d='M9 16 Q13 20 9 24' fill='none' stroke='#ffd6e2' stroke-width='2.5' stroke-linecap='round'/>" +
+  "<path d='M31 16 Q27 20 31 24' fill='none' stroke='#ffd6e2' stroke-width='2.5' stroke-linecap='round'/>" +
+  "<path d='M6 30 Q10 33 7 37' fill='none' stroke='#ffd6e2' stroke-width='2' stroke-linecap='round'/>" +
+  "<path d='M34 30 Q30 33 33 37' fill='none' stroke='#ffd6e2' stroke-width='2' stroke-linecap='round'/>" +
+  "</g>" +
+  "<g id='ws'>" +
+  "<rect x='3' y='3' width='34' height='34' rx='6' fill='none' stroke='currentColor' stroke-width='3'/>" +
+  "<line x1='10' y1='10' x2='30' y2='30' stroke='currentColor' stroke-width='3' stroke-linecap='round'/>" +
+  "<g font-size='8' font-weight='700' text-anchor='middle' fill='currentColor'>" +
+  "<text x='10' y='13'>C</text><text x='20' y='13'>R</text><text x='30' y='13'>M</text>" +
+  "<text x='10' y='23'>S</text><text x='20' y='23'>A</text><text x='30' y='23'>D</text>" +
+  "<text x='10' y='33'>P</text><text x='20' y='33'>L</text><text x='30' y='33'>T</text>" +
+  "</g>" +
+  "</g>" +
+  "<g id='su'>" +
+  "<rect x='3' y='3' width='34' height='34' rx='5' fill='none' stroke='currentColor' stroke-width='3'/>" +
+  "<line x1='20' y1='3' x2='20' y2='37' stroke='currentColor' stroke-width='2.5'/>" +
+  "<line x1='3' y1='20' x2='37' y2='20' stroke='currentColor' stroke-width='2.5'/>" +
+  "<text x='11' y='15' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>1</text>" +
+  "<text x='29' y='15' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>2</text>" +
+  "<text x='11' y='33' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>3</text>" +
+  "<text x='29' y='33' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>4</text>" +
+  "</g>" +
+  "</defs>" +
+  "<g fill='#ff9f5a' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(75 75) rotate(15) scale(0.85)'/></g>" +
+  "<g style='color:#ffffff' opacity='0.9'><use href='#br' transform='translate(220 60) rotate(-8) scale(0.85)'/></g>" +
+  "<g fill='#6ee7b7' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(240 220) rotate(-20) scale(0.8)'/></g>" +
+  "<g style='color:#93c5fd'><use href='#su' transform='translate(70 230) rotate(6) scale(1.0)'/></g>" +
+  "<g style='color:#ffd166'><use href='#ws' transform='translate(170 160) rotate(-10) scale(0.85)'/></g>" +
+  "</svg>";
+
+DB.BRAINCLUB_GRADIENT_CSS = "linear-gradient(135deg, #f3e8ff 0%, #c9a3ff 50%, #60a5fa 100%)";
+
 DB.BACKGROUND_SCENES = {
-  "Brainclub": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'>" +
-    "<defs>" +
-    "<linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
-    "<stop offset='0' stop-color='#f3e8ff'/><stop offset='0.5' stop-color='#c9a3ff'/><stop offset='1' stop-color='#60a5fa'/>" +
-    "</linearGradient>" +
-    "<path id='pc' d='M4 4 H24 C24 -4 40 -4 40 4 H60 V24 C68 24 68 40 60 40 V60 H40 C40 52 24 52 24 60 H4 V40 C12 40 12 24 4 24 Z'/>" +
-    "<g id='br'>" +
-    "<path d='M20 10 C14 4 4 6 2 14 C-4 14 -6 24 0 28 C-4 34 0 42 8 42 C8 48 16 50 20 46 C24 50 32 48 32 42 C40 42 44 34 40 28 C46 24 44 14 38 14 C36 6 26 4 20 10 Z' fill='#ff9db8' stroke='#e0648a' stroke-width='2.5' stroke-linejoin='round'/>" +
-    "<path d='M20 10 Q17 26 20 46' fill='none' stroke='#e0648a' stroke-width='2.5' stroke-linecap='round'/>" +
-    "<path d='M9 16 Q13 20 9 24' fill='none' stroke='#ffd6e2' stroke-width='2.5' stroke-linecap='round'/>" +
-    "<path d='M31 16 Q27 20 31 24' fill='none' stroke='#ffd6e2' stroke-width='2.5' stroke-linecap='round'/>" +
-    "<path d='M6 30 Q10 33 7 37' fill='none' stroke='#ffd6e2' stroke-width='2' stroke-linecap='round'/>" +
-    "<path d='M34 30 Q30 33 33 37' fill='none' stroke='#ffd6e2' stroke-width='2' stroke-linecap='round'/>" +
-    "</g>" +
-    "<g id='ws'>" +
-    "<rect x='3' y='3' width='34' height='34' rx='6' fill='none' stroke='currentColor' stroke-width='3'/>" +
-    "<line x1='10' y1='10' x2='30' y2='30' stroke='currentColor' stroke-width='3' stroke-linecap='round'/>" +
-    "<g font-size='8' font-weight='700' text-anchor='middle' fill='currentColor'>" +
-    "<text x='10' y='13'>C</text><text x='20' y='13'>R</text><text x='30' y='13'>M</text>" +
-    "<text x='10' y='23'>S</text><text x='20' y='23'>A</text><text x='30' y='23'>D</text>" +
-    "<text x='10' y='33'>P</text><text x='20' y='33'>L</text><text x='30' y='33'>T</text>" +
-    "</g>" +
-    "</g>" +
-    "<g id='su'>" +
-    "<rect x='3' y='3' width='34' height='34' rx='5' fill='none' stroke='currentColor' stroke-width='3'/>" +
-    "<line x1='20' y1='3' x2='20' y2='37' stroke='currentColor' stroke-width='2.5'/>" +
-    "<line x1='3' y1='20' x2='37' y2='20' stroke='currentColor' stroke-width='2.5'/>" +
-    "<text x='11' y='15' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>1</text>" +
-    "<text x='29' y='15' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>2</text>" +
-    "<text x='11' y='33' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>3</text>" +
-    "<text x='29' y='33' font-size='11' font-weight='700' text-anchor='middle' fill='currentColor'>4</text>" +
-    "</g>" +
-    "<g id='wg'>" +
-    "<rect x='2' y='13' width='11' height='14' rx='2' fill='currentColor'/>" +
-    "<text x='7.5' y='23' font-size='9' font-weight='700' text-anchor='middle' fill='#fff'>A</text>" +
-    "<rect x='15' y='13' width='11' height='14' rx='2' fill='none' stroke='currentColor' stroke-width='2.5'/>" +
-    "<text x='20.5' y='23' font-size='9' font-weight='700' text-anchor='middle' fill='currentColor'>B</text>" +
-    "<rect x='28' y='13' width='11' height='14' rx='2' fill='none' stroke='currentColor' stroke-width='2.5'/>" +
-    "<text x='33.5' y='23' font-size='9' font-weight='700' text-anchor='middle' fill='currentColor'>C</text>" +
-    "</g>" +
-    "<g id='sq'>" +
-    "<rect x='3' y='3' width='34' height='34' rx='6' fill='none' stroke='currentColor' stroke-width='3'/>" +
-    "<text x='20' y='25' font-size='13' font-weight='700' text-anchor='middle' fill='currentColor'>abc</text>" +
-    "</g>" +
-    "</defs>" +
-    "<rect width='800' height='450' fill='url(#g)'/>" +
-    "<g style='color:#ffd166'><use href='#ws' transform='translate(210 300) rotate(-8) scale(1.7)'/></g>" +
-    "<g style='color:#a78bfa'><use href='#sq' transform='translate(420 70) rotate(-6) scale(1.4)'/></g>" +
-    "<g fill='#ff9f5a' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(530 330) rotate(-20) scale(1.15)'/></g>" +
-    "<g fill='#6ee7b7' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(200 170) rotate(25) scale(0.85)'/></g>" +
-    "<g fill='#ff6fa5' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(705 190) rotate(-10) scale(0.95)'/></g>" +
-    "<g fill='#3b82f6' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(40 300) rotate(-25) scale(0.95)'/></g>" +
-    "<g fill='#a78bfa' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(405 250) rotate(30) scale(0.85)'/></g>" +
-    "<g fill='#ffd166' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(595 110) rotate(-15) scale(0.85)'/></g>" +
-    "<g style='color:#ffffff' opacity='0.9'><use href='#br' transform='translate(140 90) rotate(-8) scale(1.1)'/></g>" +
-    "<g style='color:#ffe6ee' opacity='0.9'><use href='#br' transform='translate(410 140) rotate(10) scale(0.9)'/></g>" +
-    "<g style='color:#ffffff' opacity='0.9'><use href='#br' transform='translate(650 300) rotate(-12) scale(1.05)'/></g>" +
-    "<g style='color:#93c5fd'><use href='#su' transform='translate(540 210) rotate(6) scale(1.4)'/></g>" +
-    "</svg>",
   "sunrise": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'>" +
     "<defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'>" +
     "<stop offset='0' stop-color='#fff1c4'/><stop offset='0.55' stop-color='#ffb37b'/><stop offset='1' stop-color='#ff7eb3'/>" +
@@ -524,6 +512,19 @@ DB.applyTheme = function (state) {
   var decor = document.querySelector(".bg-decor");
   if (!decor) return;
   var sceneName = state.activeBackground || "Brainclub";
+
+  if (sceneName === "Brainclub") {
+    decor.style.backgroundImage =
+      DB.svgBackgroundUrl(DB.BRAINCLUB_SQ_LAYER) + ", " +
+      DB.svgBackgroundUrl(DB.BRAINCLUB_TILE) + ", " +
+      DB.BRAINCLUB_GRADIENT_CSS;
+    decor.style.backgroundSize = "cover, 220px 220px, cover";
+    decor.style.backgroundPosition = "center bottom, 0 0, center";
+    decor.style.backgroundRepeat = "no-repeat, repeat, no-repeat";
+    decor.classList.add("custom-scene");
+    return;
+  }
+
   var scene = DB.BACKGROUND_SCENES[sceneName];
   if (scene) {
     decor.style.backgroundImage = DB.svgBackgroundUrl(scene);
