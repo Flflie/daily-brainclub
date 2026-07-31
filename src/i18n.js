@@ -95,6 +95,8 @@ DB.UI = {
     "settings.system": "Systeem",
     "settings.name": "Naam",
     "settings.editName": "wijzigen",
+    "settings.contact": "Contact",
+    "settings.contactAction": "e-mail ons",
 
     "home.missionTitle": "Dagelijkse missie",
     "home.playedToday": "Je hebt vandaag al gespeeld — score: <b>{score}</b>. Kom morgen terug voor een nieuwe run!",
@@ -300,6 +302,8 @@ DB.UI = {
     "settings.system": "System",
     "settings.name": "Name",
     "settings.editName": "edit",
+    "settings.contact": "Contact",
+    "settings.contactAction": "email us",
 
     "home.missionTitle": "Daily mission",
     "home.playedToday": "You've already played today — score: <b>{score}</b>. Come back tomorrow for a new run!",

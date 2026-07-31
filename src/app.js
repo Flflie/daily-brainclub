@@ -57,6 +57,10 @@ DB.renderHeader = function (state) {
             '<button class="link-btn" id="settingsEditName">' + state.firstName + ' · ' + DB.t("settings.editName") + '</button>' +
           '</div>'
         : "") +
+      '<div class="settings-row">' +
+        '<span>' + DB.t("settings.contact") + '</span>' +
+        '<a class="link-btn" href="mailto:waterpixels2@gmail.com">' + DB.t("settings.contactAction") + '</a>' +
+      '</div>' +
     '</div>';
   return (
     sceneBannerHtml +
