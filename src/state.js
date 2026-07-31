@@ -108,7 +108,8 @@ DB.BRAINCLUB_TILE = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 30
   "</defs>" +
   "<g fill='#ff9f5a' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(75 75) rotate(15) scale(0.85)'/></g>" +
   "<g style='color:#ffffff' opacity='0.9'><use href='#br' transform='translate(220 60) rotate(-8) scale(0.85)'/></g>" +
-  "<g fill='#6ee7b7' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(240 220) rotate(-20) scale(0.8)'/></g>" +
+  "<g fill='#3b82f6' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(240 220) rotate(-20) scale(0.8)'/></g>" +
+  "<g fill='#6ee7b7' stroke='#fff' stroke-width='3' stroke-linejoin='round'><use href='#pc' transform='translate(270 130) rotate(10) scale(0.7)'/></g>" +
   "<g style='color:#93c5fd'><use href='#su' transform='translate(70 230) rotate(6) scale(1.0)'/></g>" +
   "<g style='color:#ffd166'><use href='#ws' transform='translate(170 160) rotate(-10) scale(0.85)'/></g>" +
   "</svg>";
