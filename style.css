@@ -640,6 +640,7 @@ h1, h2, h3 { margin: 0 0 8px; }
 }
 .sudoku-cell.given { color: var(--text-dim); cursor: default; }
 .sudoku-cell.selected { border-color: var(--accent); }
+.sudoku-cell.conflict { background: rgba(239, 68, 68, 0.18); color: #ef4444; border-color: #ef4444; }
 .sudoku-cell.border-right { margin-right: 4px; }
 .sudoku-cell.border-bottom { margin-bottom: 4px; }
 .numpad {

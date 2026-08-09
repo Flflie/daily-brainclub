@@ -72,6 +72,37 @@ DB.SudokuPuzzle = {
       return count;
     }
 
+    function boxOf(r, c) {
+      var br = r < 2 ? 0 : 2, bc = c < 2 ? 0 : 2;
+      return { r0: br, r1: br + 1, c0: bc, c1: bc + 1 };
+    }
+
+    function hasConflict(r, c) {
+      var val = userGrid[r][c];
+      if (!val) return false;
+      for (var cc = 0; cc < SIZE; cc++) {
+        if (cc !== c) {
+          var other = given[r][cc] !== 0 ? given[r][cc] : userGrid[r][cc];
+          if (other === val) return true;
+        }
+      }
+      for (var rr = 0; rr < SIZE; rr++) {
+        if (rr !== r) {
+          var other2 = given[rr][c] !== 0 ? given[rr][c] : userGrid[rr][c];
+          if (other2 === val) return true;
+        }
+      }
+      var box = boxOf(r, c);
+      for (var br = box.r0; br <= box.r1; br++) {
+        for (var bc = box.c0; bc <= box.c1; bc++) {
+          if (br === r && bc === c) continue;
+          var other3 = given[br][bc] !== 0 ? given[br][bc] : userGrid[br][bc];
+          if (other3 === val) return true;
+        }
+      }
+      return false;
+    }
+
     function render() {
       var html = '<div class="puzzle-title">' + DB.t("sudoku.instruction", { title: DB.puzzleTitle("sudoku") }) + '</div>';
       html += '<div class="sudoku-grid">';
@@ -82,6 +113,7 @@ DB.SudokuPuzzle = {
           var cls = "sudoku-cell";
           if (isGiven) cls += " given";
           if (selected && selected.r === r && selected.c === c) cls += " selected";
+          if (!isGiven && userGrid[r][c] && hasConflict(r, c)) cls += " conflict";
           if ((c === 1) ) cls += " border-right";
           if ((r === 1)) cls += " border-bottom";
           html += '<div class="' + cls + '" data-r="' + r + '" data-c="' + c + '">' + val + '</div>';
