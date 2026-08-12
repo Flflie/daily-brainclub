@@ -8,11 +8,17 @@ DB.LogicPuzzle = {
   NAMES: ["Anna", "Bram", "Cas", "Diana", "Emma", "Finn"],
   COLORS: {
     nl: ["rood", "blauw", "groen", "geel", "paars"],
-    en: ["red", "blue", "green", "yellow", "purple"]
+    en: ["red", "blue", "green", "yellow", "purple"],
+    de: ["rot", "blau", "grün", "gelb", "lila"],
+    fr: ["rouge", "bleu", "vert", "jaune", "violet"],
+    es: ["rojo", "azul", "verde", "amarillo", "morado"]
   },
   PETS: {
     nl: ["kat", "hond", "vis", "vogel", "konijn"],
-    en: ["cat", "dog", "fish", "bird", "rabbit"]
+    en: ["cat", "dog", "fish", "bird", "rabbit"],
+    de: ["Katze", "Hund", "Fisch", "Vogel", "Kaninchen"],
+    fr: ["chat", "chien", "poisson", "oiseau", "lapin"],
+    es: ["gato", "perro", "pez", "pájaro", "conejo"]
   },
 
   shuffleArray: function (arr, rng) {
@@ -36,19 +42,39 @@ DB.LogicPuzzle = {
     var personColor = [colors[colorPerm[0]], colors[colorPerm[1]], colors[colorPerm[2]]];
     var personPet = [pets[petPerm[0]], pets[petPerm[1]], pets[petPerm[2]]];
 
-    var clues = lang === "en"
-      ? [
-          people[0] + " wears " + personColor[0] + ".",
-          people[1] + " does not wear " + personColor[2] + ".",
-          "The person with the " + personPet[2] + " is " + people[2] + ".",
-          people[0] + " does not have a " + personPet[1] + "."
-        ]
-      : [
-          people[0] + " draagt " + personColor[0] + ".",
-          people[1] + " draagt niet " + personColor[2] + ".",
-          "De persoon met de " + personPet[2] + " is " + people[2] + ".",
-          people[0] + " heeft geen " + personPet[1] + "."
-        ];
+    var clueTemplates = {
+      nl: [
+        people[0] + " draagt " + personColor[0] + ".",
+        people[1] + " draagt niet " + personColor[2] + ".",
+        "De persoon met de " + personPet[2] + " is " + people[2] + ".",
+        people[0] + " heeft geen " + personPet[1] + "."
+      ],
+      en: [
+        people[0] + " wears " + personColor[0] + ".",
+        people[1] + " does not wear " + personColor[2] + ".",
+        "The person with the " + personPet[2] + " is " + people[2] + ".",
+        people[0] + " does not have a " + personPet[1] + "."
+      ],
+      de: [
+        people[0] + " trägt " + personColor[0] + ".",
+        people[1] + " trägt nicht " + personColor[2] + ".",
+        "Die Person mit " + personPet[2] + " ist " + people[2] + ".",
+        people[0] + " hat kein " + personPet[1] + "."
+      ],
+      fr: [
+        people[0] + " porte la couleur " + personColor[0] + ".",
+        people[1] + " ne porte pas la couleur " + personColor[2] + ".",
+        "La personne avec " + personPet[2] + " est " + people[2] + ".",
+        people[0] + " n'a pas de " + personPet[1] + "."
+      ],
+      es: [
+        people[0] + " lleva el color " + personColor[0] + ".",
+        people[1] + " no lleva el color " + personColor[2] + ".",
+        "La persona con " + personPet[2] + " es " + people[2] + ".",
+        people[0] + " no tiene " + personPet[1] + "."
+      ]
+    };
+    var clues = clueTemplates[lang] || clueTemplates.nl;
 
     return {
       people: people,

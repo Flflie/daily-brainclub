@@ -39,8 +39,9 @@ DB.renderHeader = function (state) {
       '<div class="settings-row">' +
         '<span>' + DB.t("settings.language") + '</span>' +
         '<div class="settings-lang-switch">' +
-          '<button class="lang-opt' + (lang === "nl" ? " active" : "") + '" data-lang="nl">NL</button>' +
-          '<button class="lang-opt' + (lang === "en" ? " active" : "") + '" data-lang="en">EN</button>' +
+          DB.LANGUAGES.map(function (code) {
+            return '<button class="lang-opt' + (lang === code ? " active" : "") + '" data-lang="' + code + '">' + code.toUpperCase() + '</button>';
+          }).join("") +
         '</div>' +
       '</div>' +
       '<div class="settings-row">' +

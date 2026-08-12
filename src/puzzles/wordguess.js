@@ -7,7 +7,10 @@ DB.WordGuessPuzzle = {
 
   WORDS: {
     nl: ["APPEL", "TAFEL", "STOEL", "WATER", "BLOEM", "KAMER", "BRIEF", "PLANT", "VLIEG", "KRANT", "SCHIP", "TREIN", "GROEN", "FIETS", "PAARD"],
-    en: ["APPLE", "TABLE", "CHAIR", "WATER", "FLAME", "HOUSE", "PAPER", "BEACH", "PLANE", "MOUSE", "SHIRT", "TRAIN", "GREEN", "BREAD", "HORSE"]
+    en: ["APPLE", "TABLE", "CHAIR", "WATER", "FLAME", "HOUSE", "PAPER", "BEACH", "PLANE", "MOUSE", "SHIRT", "TRAIN", "GREEN", "BREAD", "HORSE"],
+    de: ["APFEL", "TISCH", "STUHL", "BLUME", "BRIEF", "ZEBRA", "GRUEN", "PFERD", "KLEID", "STIFT", "MOTOR", "KATZE", "WOLKE", "BLATT", "TASSE"],
+    fr: ["POMME", "TABLE", "FLEUR", "PORTE", "LIVRE", "PLAGE", "TRAIN", "VERTE", "PLUIE", "CHIEN", "ROUTE", "VILLE", "TASSE", "VIEUX", "JAUNE"],
+    es: ["LIBRO", "SILLA", "PLAYA", "VERDE", "PERRO", "CALLE", "PLATO", "NOCHE", "RATON", "FLORA", "AGUAS", "NUBES", "PATOS", "CIELO", "MESAS"]
   },
 
   generate: function (rng) {

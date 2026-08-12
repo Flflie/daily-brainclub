@@ -7,7 +7,10 @@ DB.WordSearchPuzzle = {
   SIZE: 8,
   WORD_POOL: {
     nl: ["KAT", "HOND", "VOGEL", "PAARD", "VIS", "UIL", "BEER", "WOLF"],
-    en: ["CAT", "DOG", "BIRD", "HORSE", "FISH", "OWL", "BEAR", "WOLF"]
+    en: ["CAT", "DOG", "BIRD", "HORSE", "FISH", "OWL", "BEAR", "WOLF"],
+    de: ["KATZE", "HUND", "VOGEL", "PFERD", "FISCH", "EULE", "BAER", "WOLF"],
+    fr: ["CHAT", "CHIEN", "OISEAU", "CHEVAL", "POISSON", "HIBOU", "OURS", "LOUP"],
+    es: ["GATO", "PERRO", "AVE", "CABALLO", "PEZ", "BUHO", "OSO", "LOBO"]
   },
   ALPHABET: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   DIRS: [[0, 1], [1, 0], [1, 1], [-1, 1]],

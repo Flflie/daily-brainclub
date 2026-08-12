@@ -35,12 +35,18 @@ DB.newDeviceId = function () {
 
 DB.WEEK_BADGE_NAMES = {
   nl: ["Beginnersgeluk", "Puzzelaar", "Denker", "Scherpzinnig", "Meesterbrein", "Puzzelheld", "Genie in wording", "Legende"],
-  en: ["Beginner's Luck", "Puzzler", "Thinker", "Sharp Mind", "Mastermind", "Puzzle Hero", "Genius in Training", "Legend"]
+  en: ["Beginner's Luck", "Puzzler", "Thinker", "Sharp Mind", "Mastermind", "Puzzle Hero", "Genius in Training", "Legend"],
+  de: ["Anfängerglück", "Rätselfuchs", "Denker", "Scharfsinn", "Meisterhirn", "Rätselheld", "Genie im Werden", "Legende"],
+  fr: ["Chance du débutant", "Puzzliste", "Penseur", "Esprit vif", "Cerveau brillant", "Héros du puzzle", "Génie en herbe", "Légende"],
+  es: ["Suerte de novato", "Enigmista", "Pensador", "Mente aguda", "Cerebrito", "Héroe de puzles", "Genio en formación", "Leyenda"]
 };
 DB.WEEK_BADGE_EMOJIS = ["🥉", "🥈", "🏅", "🎖️", "🧩", "⭐", "🌟", "💎"];
 DB.TROPHY_NAMES = {
   nl: ["Bronzen Beker", "Zilveren Beker", "Gouden Beker", "Platina Beker", "Diamanten Beker", "Kristallen Beker", "Titanium Beker", "Legendarische Beker"],
-  en: ["Bronze Trophy", "Silver Trophy", "Gold Trophy", "Platinum Trophy", "Diamond Trophy", "Crystal Trophy", "Titanium Trophy", "Legendary Trophy"]
+  en: ["Bronze Trophy", "Silver Trophy", "Gold Trophy", "Platinum Trophy", "Diamond Trophy", "Crystal Trophy", "Titanium Trophy", "Legendary Trophy"],
+  de: ["Bronzepokal", "Silberpokal", "Goldpokal", "Platinpokal", "Diamantpokal", "Kristallpokal", "Titanpokal", "Legendärer Pokal"],
+  fr: ["Trophée de bronze", "Trophée d'argent", "Trophée d'or", "Trophée de platine", "Trophée de diamant", "Trophée de cristal", "Trophée de titane", "Trophée légendaire"],
+  es: ["Trofeo de bronce", "Trofeo de plata", "Trofeo de oro", "Trofeo de platino", "Trofeo de diamante", "Trofeo de cristal", "Trofeo de titanio", "Trofeo legendario"]
 };
 DB.CHALLENGE_FLAVORS = {
   nl: [
@@ -54,19 +60,43 @@ DB.CHALLENGE_FLAVORS = {
     "Play fast: earn the speed bonus 3x this week.",
     "This week: 3x speed bonus for an extra album card.",
     "Challenge of the week: solve all puzzles within 2 minutes, 3 times."
+  ],
+  de: [
+    "Erreiche diese Woche 3x den Blitzbonus (alle Rätsel innerhalb von 2 Min.).",
+    "Spiele schnell: sammle diese Woche 3x den Blitzbonus.",
+    "Diese Woche: 3x Blitzbonus für eine zusätzliche Album-Karte.",
+    "Herausforderung der Woche: löse alle Rätsel 3x innerhalb von 2 Minuten."
+  ],
+  fr: [
+    "Obtiens le bonus éclair 3x cette semaine (tous les puzzles en moins de 2 min).",
+    "Joue vite : gagne le bonus éclair 3x cette semaine.",
+    "Cette semaine : 3x bonus éclair pour une carte d'album supplémentaire.",
+    "Défi de la semaine : résous tous les puzzles en moins de 2 minutes, 3 fois."
+  ],
+  es: [
+    "Consigue el bonus relámpago 3 veces esta semana (todos los puzles en menos de 2 min).",
+    "Juega rápido: gana el bonus relámpago 3 veces esta semana.",
+    "Esta semana: 3x bonus relámpago para una carta de álbum extra.",
+    "Reto de la semana: resuelve todos los puzles en menos de 2 minutos, 3 veces."
   ]
 };
 
 DB.BACKGROUND_IDS = ["sunrise", "aurora", "dunes", "starrysky", "blossom", "autumnforest", "wintersnow", "summersea"];
 DB.BACKGROUND_LABELS = {
   nl: { sunrise: "Zonsopgang", aurora: "Noorderlicht", dunes: "Duinlandschap", starrysky: "Sterrenhemel", blossom: "Lentebloesem", autumnforest: "Herfstbos", wintersnow: "Wintersneeuw", summersea: "Zomerzee" },
-  en: { sunrise: "Sunrise", aurora: "Northern Lights", dunes: "Dune Landscape", starrysky: "Starry Sky", blossom: "Spring Blossom", autumnforest: "Autumn Forest", wintersnow: "Winter Snow", summersea: "Summer Sea" }
+  en: { sunrise: "Sunrise", aurora: "Northern Lights", dunes: "Dune Landscape", starrysky: "Starry Sky", blossom: "Spring Blossom", autumnforest: "Autumn Forest", wintersnow: "Winter Snow", summersea: "Summer Sea" },
+  de: { sunrise: "Sonnenaufgang", aurora: "Nordlicht", dunes: "Dünenlandschaft", starrysky: "Sternenhimmel", blossom: "Frühlingsblüte", autumnforest: "Herbstwald", wintersnow: "Winterschnee", summersea: "Sommermeer" },
+  fr: { sunrise: "Lever de soleil", aurora: "Aurore boréale", dunes: "Paysage de dunes", starrysky: "Ciel étoilé", blossom: "Floraison printanière", autumnforest: "Forêt d'automne", wintersnow: "Neige d'hiver", summersea: "Mer d'été" },
+  es: { sunrise: "Amanecer", aurora: "Aurora boreal", dunes: "Paisaje de dunas", starrysky: "Cielo estrellado", blossom: "Flores de primavera", autumnforest: "Bosque otoñal", wintersnow: "Nieve invernal", summersea: "Mar de verano" }
 };
 
 DB.AVATAR_IDS = ["crown", "knight", "wizard", "astronaut", "captain", "explorer", "champion", "master"];
 DB.AVATAR_LABELS = {
   nl: { crown: "Gouden Kroon-avatar", knight: "Ridder-avatar", wizard: "Tovenaar-avatar", astronaut: "Astronaut-avatar", captain: "Kapitein-avatar", explorer: "Ontdekkingsreiziger-avatar", champion: "Kampioen-avatar", master: "Meester-avatar" },
-  en: { crown: "Golden Crown Avatar", knight: "Knight Avatar", wizard: "Wizard Avatar", astronaut: "Astronaut Avatar", captain: "Captain Avatar", explorer: "Explorer Avatar", champion: "Champion Avatar", master: "Master Avatar" }
+  en: { crown: "Golden Crown Avatar", knight: "Knight Avatar", wizard: "Wizard Avatar", astronaut: "Astronaut Avatar", captain: "Captain Avatar", explorer: "Explorer Avatar", champion: "Champion Avatar", master: "Master Avatar" },
+  de: { crown: "Goldkronen-Avatar", knight: "Ritter-Avatar", wizard: "Zauberer-Avatar", astronaut: "Astronauten-Avatar", captain: "Kapitäns-Avatar", explorer: "Entdecker-Avatar", champion: "Champion-Avatar", master: "Meister-Avatar" },
+  fr: { crown: "Avatar Couronne d'or", knight: "Avatar Chevalier", wizard: "Avatar Magicien", astronaut: "Avatar Astronaute", captain: "Avatar Capitaine", explorer: "Avatar Explorateur", champion: "Avatar Champion", master: "Avatar Maître" },
+  es: { crown: "Avatar Corona Dorada", knight: "Avatar Caballero", wizard: "Avatar Mago", astronaut: "Avatar Astronauta", captain: "Avatar Capitán", explorer: "Avatar Explorador", champion: "Avatar Campeón", master: "Avatar Maestro" }
 };
 
 DB.BRAINCLUB_SQ_LAYER = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'>" +
