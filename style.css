@@ -177,6 +177,19 @@ h1, h2, h3 { margin: 0 0 8px; }
   position: relative;
 }
 
+.home-btn {
+  border: none;
+  background: var(--surface-2);
+  font-size: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .settings-toggle {
   border: none;
   background: var(--surface-2);

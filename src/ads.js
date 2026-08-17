@@ -16,7 +16,7 @@ DB.renderAdBreak = function (onDone) {
   var seconds = 4;
 
   DB.appRoot.innerHTML =
-    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div></div>' +
+    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div>' + DB.homeBtn() + '</div>' +
     '<div class="ad-card" style="background:' + creative.bg + '">' +
       '<span class="ad-label">' + DB.t("ad.label") + '</span>' +
       '<div class="ad-emoji">' + creative.emoji + '</div>' +

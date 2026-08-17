@@ -15,6 +15,10 @@ DB.COMING_SOON = [];
 DB.appRoot = document.getElementById("app");
 DB.runState = null;
 
+DB.homeBtn = function () {
+  return '<button class="home-btn" data-home aria-label="Home">🏠</button>';
+};
+
 DB.formatDate = function () {
   var d = new Date();
   var locale = DB.currentLang() === "en" ? "en-US" : "nl-NL";
@@ -68,6 +72,7 @@ DB.renderHeader = function (state) {
     '<div class="header">' +
       '<div class="header-left">' + avatarHtml + '<div class="brand">Daily <span>BrainClub</span></div></div>' +
       '<div class="header-right">' +
+        DB.homeBtn() +
         '<div class="streak-pill">🔥 ' + state.streak + '</div>' +
         '<div class="settings-wrap">' +
           '<button class="settings-toggle" id="settingsBtn" aria-label="Settings">⚙️</button>' +
@@ -245,7 +250,7 @@ DB.renderPracticeStep = function () {
   ps.abandoning = false;
 
   DB.appRoot.innerHTML =
-    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="streak-pill">' + ps.def.emoji + ' ' + DB.t("practice.label") + '</div></div>' +
+    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="header-right">' + DB.homeBtn() + '<div class="streak-pill">' + ps.def.emoji + ' ' + DB.t("practice.label") + '</div></div></div>' +
     '<div class="card" id="puzzleContainer"></div>' +
     '<button class="btn secondary" id="practiceExit" style="margin-top:12px">' + DB.t("run.backHome") + '</button>';
 
@@ -416,7 +421,7 @@ DB.renderPuzzleStep = function () {
   }).join("");
 
   DB.appRoot.innerHTML =
-    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="streak-pill">' + step.def.emoji + ' ' + (rs.index + 1) + '/' + rs.puzzles.length + '</div></div>' +
+    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="header-right">' + DB.homeBtn() + '<div class="streak-pill">' + step.def.emoji + ' ' + (rs.index + 1) + '/' + rs.puzzles.length + '</div></div></div>' +
     '<div class="progress-row">' + dots + '</div>' +
     '<div class="timer-bar-track"><div class="timer-bar-fill" id="timerFill" style="width:100%"></div></div>' +
     '<div class="bonus-label" id="bonusLabel">' + DB.t("run.bonusRemaining", { s: DB.PUZZLE_SECONDS }) + '</div>' +
@@ -541,7 +546,7 @@ DB.finishRun = function () {
   }
 
   DB.appRoot.innerHTML =
-    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div></div>' +
+    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div>' + DB.homeBtn() + '</div>' +
     '<div class="card center">' +
       '<h2>' + DB.t("run.dailyScore") + '</h2>' +
       '<div class="result-score">' + dailyScore + '</div>' +
@@ -560,6 +565,11 @@ DB.finishRun = function () {
   document.getElementById("viewAlbumsBtn").addEventListener("click", DB.renderAlbums);
   document.getElementById("lbViewBtn").addEventListener("click", DB.renderLeaderboard);
 };
+
+document.addEventListener("click", function (e) {
+  var btn = e.target.closest("[data-home]");
+  if (btn) DB.renderHome();
+});
 
 DB.applyTheme(DB.loadState());
 DB.applyColorTheme(DB.loadState());
