@@ -701,6 +701,7 @@ h1, h2, h3 { margin: 0 0 8px; }
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   gap: 3px;
+  touch-action: none;
 }
 .wordsearch-cell {
   aspect-ratio: 1;
@@ -712,6 +713,8 @@ h1, h2, h3 { margin: 0 0 8px; }
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  touch-action: none;
+  user-select: none;
   color: var(--text);
 }
 .wordsearch-cell.selecting { background: var(--accent); color: #fff; }

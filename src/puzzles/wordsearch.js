@@ -100,10 +100,16 @@ DB.WordSearchPuzzle = {
       container.innerHTML = html;
 
       container.querySelectorAll(".wordsearch-cell").forEach(function (cell) {
-        cell.addEventListener("click", function () {
+        cell.addEventListener("pointerdown", function (e) {
+          e.preventDefault();
           var r = parseInt(cell.getAttribute("data-r"), 10);
           var c = parseInt(cell.getAttribute("data-c"), 10);
-          handleCellClick(r, c);
+          dragging = true;
+          selStart = { r: r, c: c };
+          updatePathPreview(r, c);
+          render();
+          document.addEventListener("pointermove", onDragMove);
+          document.addEventListener("pointerup", onDragEnd);
         });
       });
     }
@@ -111,27 +117,67 @@ DB.WordSearchPuzzle = {
     var foundCells = {};
     function isFoundCell(r, c) { return !!foundCells[cellKey(r, c)]; }
 
-    function handleCellClick(r, c) {
-      if (!selStart) {
-        selStart = { r: r, c: c };
-        render();
-        return;
-      }
-      var r1 = selStart.r, c1 = selStart.c;
+    var dragging = false;
+    var dragPathKeys = {};
+
+    function pathCells(r1, c1, r, c) {
       var dr = r - r1, dc = c - c1;
       var steps = Math.max(Math.abs(dr), Math.abs(dc));
       var valid = steps > 0 && (dr === 0 || dc === 0 || Math.abs(dr) === Math.abs(dc));
+      if (!valid) return null;
+      var stepR = dr === 0 ? 0 : dr / Math.abs(dr);
+      var stepC = dc === 0 ? 0 : dc / Math.abs(dc);
+      var cells = [];
+      for (var i = 0; i <= steps; i++) {
+        cells.push([r1 + stepR * i, c1 + stepC * i]);
+      }
+      return cells;
+    }
 
-      if (valid) {
-        var stepR = dr === 0 ? 0 : dr / Math.abs(dr);
-        var stepC = dc === 0 ? 0 : dc / Math.abs(dc);
-        var cells = [];
-        var letters = "";
-        for (var i = 0; i <= steps; i++) {
-          var rr = r1 + stepR * i, cc = c1 + stepC * i;
-          cells.push([rr, cc]);
-          letters += grid[rr][cc];
-        }
+    function updatePathPreview(r, c) {
+      dragPathKeys = {};
+      if (!selStart) return;
+      var cells = pathCells(selStart.r, selStart.c, r, c);
+      if (!cells) return;
+      cells.forEach(function (rc) { dragPathKeys[cellKey(rc[0], rc[1])] = true; });
+      container.querySelectorAll(".wordsearch-cell").forEach(function (cellEl) {
+        var rr = cellEl.getAttribute("data-r"), cc = cellEl.getAttribute("data-c");
+        cellEl.classList.toggle("selecting", !!dragPathKeys[cellKey(rr, cc)]);
+      });
+    }
+
+    function onDragMove(e) {
+      if (!dragging) return;
+      var el = document.elementFromPoint(e.clientX, e.clientY);
+      var cellEl = el && el.closest ? el.closest(".wordsearch-cell") : null;
+      if (!cellEl) return;
+      var r = parseInt(cellEl.getAttribute("data-r"), 10);
+      var c = parseInt(cellEl.getAttribute("data-c"), 10);
+      updatePathPreview(r, c);
+    }
+
+    function onDragEnd(e) {
+      document.removeEventListener("pointermove", onDragMove);
+      document.removeEventListener("pointerup", onDragEnd);
+      if (!dragging) return;
+      dragging = false;
+      var el = document.elementFromPoint(e.clientX, e.clientY);
+      var cellEl = el && el.closest ? el.closest(".wordsearch-cell") : null;
+      if (cellEl) {
+        var r = parseInt(cellEl.getAttribute("data-r"), 10);
+        var c = parseInt(cellEl.getAttribute("data-c"), 10);
+        completeSelection(r, c);
+      } else {
+        selStart = null;
+        render();
+      }
+    }
+
+    function completeSelection(r, c) {
+      var cells = pathCells(selStart.r, selStart.c, r, c);
+
+      if (cells) {
+        var letters = cells.map(function (rc) { return grid[rc[0]][rc[1]]; }).join("");
         var reversed = letters.split("").reverse().join("");
         var match = words.find(function (w) { return !found[w] && (w === letters || w === reversed); });
         if (match) {
