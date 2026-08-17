@@ -84,9 +84,6 @@ DB.BlocksPuzzle = {
           selectedHandIndex = parseInt(el.getAttribute("data-i"), 10);
           render();
         });
-        el.addEventListener("pointerdown", function (e) {
-          startDrag(parseInt(el.getAttribute("data-i"), 10), e);
-        });
       });
 
       container.querySelectorAll(".blocks-cell").forEach(function (cell) {
@@ -96,94 +93,6 @@ DB.BlocksPuzzle = {
           tryPlace(r, c);
         });
       });
-    }
-
-    var dragState = null;
-
-    function startDrag(handIdx, e) {
-      var shapeKey = hand[handIdx];
-      if (!shapeKey) return;
-      e.preventDefault();
-      var shape = SHAPES[shapeKey];
-      var ghost = document.createElement("div");
-      ghost.className = "drag-ghost";
-      ghost.style.gridTemplateColumns = "repeat(" + shape.cols + ",1fr)";
-      ghost.style.gridTemplateRows = "repeat(" + shape.rows + ",1fr)";
-      for (var rr = 0; rr < shape.rows; rr++) {
-        for (var cc = 0; cc < shape.cols; cc++) {
-          var on = shape.cells.some(function (p) { return p[0] === rr && p[1] === cc; });
-          var cellEl = document.createElement("div");
-          cellEl.className = "drag-ghost-cell" + (on ? " on" : "");
-          ghost.appendChild(cellEl);
-        }
-      }
-      document.body.appendChild(ghost);
-      dragState = { handIdx: handIdx, shape: shape, ghostEl: ghost, lastAnchor: null };
-      moveGhost(e.clientX, e.clientY);
-      document.addEventListener("pointermove", onDragMove);
-      document.addEventListener("pointerup", onDragEnd);
-    }
-
-    function moveGhost(x, y) {
-      if (!dragState) return;
-      var ghost = dragState.ghostEl;
-      ghost.style.left = (x - ghost.offsetWidth / 2) + "px";
-      ghost.style.top = (y - ghost.offsetHeight - 50) + "px";
-    }
-
-    function findCellUnder(x, y) {
-      var wasVisible = dragState.ghostEl.style.visibility;
-      dragState.ghostEl.style.visibility = "hidden";
-      var el = document.elementFromPoint(x, y);
-      dragState.ghostEl.style.visibility = wasVisible || "visible";
-      var cellEl = el && el.closest ? el.closest(".blocks-cell") : null;
-      if (!cellEl) return null;
-      return { r: parseInt(cellEl.getAttribute("data-r"), 10), c: parseInt(cellEl.getAttribute("data-c"), 10) };
-    }
-
-    function clearPreview() {
-      container.querySelectorAll(".blocks-cell.preview-ok, .blocks-cell.preview-bad").forEach(function (c) {
-        c.classList.remove("preview-ok", "preview-bad");
-      });
-    }
-
-    function showPreview(anchorR, anchorC) {
-      clearPreview();
-      var shape = dragState.shape;
-      var targets = shape.cells.map(function (p) { return [anchorR + p[0], anchorC + p[1]]; });
-      var fits = targets.every(function (t) {
-        return t[0] >= 0 && t[0] < SIZE && t[1] >= 0 && t[1] < SIZE && !gridFilled[t[0]][t[1]];
-      });
-      targets.forEach(function (t) {
-        if (t[0] >= 0 && t[0] < SIZE && t[1] >= 0 && t[1] < SIZE) {
-          var cellEl = container.querySelector('.blocks-cell[data-r="' + t[0] + '"][data-c="' + t[1] + '"]');
-          if (cellEl) cellEl.classList.add(fits ? "preview-ok" : "preview-bad");
-        }
-      });
-    }
-
-    function onDragMove(e) {
-      if (!dragState) return;
-      moveGhost(e.clientX, e.clientY);
-      var cell = findCellUnder(e.clientX, e.clientY);
-      dragState.lastAnchor = cell;
-      if (cell) showPreview(cell.r, cell.c);
-      else clearPreview();
-    }
-
-    function onDragEnd() {
-      document.removeEventListener("pointermove", onDragMove);
-      document.removeEventListener("pointerup", onDragEnd);
-      if (!dragState) return;
-      clearPreview();
-      dragState.ghostEl.remove();
-      var anchor = dragState.lastAnchor;
-      var handIdx = dragState.handIdx;
-      dragState = null;
-      if (anchor) {
-        selectedHandIndex = handIdx;
-        tryPlace(anchor.r, anchor.c);
-      }
     }
 
     function tryPlace(anchorR, anchorC) {
