@@ -104,10 +104,7 @@ DB.WordSearchPuzzle = {
           e.preventDefault();
           var r = parseInt(cell.getAttribute("data-r"), 10);
           var c = parseInt(cell.getAttribute("data-c"), 10);
-          dragging = true;
-          selStart = { r: r, c: c };
-          updatePathPreview(r, c);
-          render();
+          pressState = { r: r, c: c, moved: false };
           document.addEventListener("pointermove", onDragMove);
           document.addEventListener("pointerup", onDragEnd);
         });
@@ -117,7 +114,7 @@ DB.WordSearchPuzzle = {
     var foundCells = {};
     function isFoundCell(r, c) { return !!foundCells[cellKey(r, c)]; }
 
-    var dragging = false;
+    var pressState = null;
     var dragPathKeys = {};
 
     function pathCells(r1, c1, r, c) {
@@ -147,30 +144,57 @@ DB.WordSearchPuzzle = {
     }
 
     function onDragMove(e) {
-      if (!dragging) return;
+      if (!pressState) return;
       var el = document.elementFromPoint(e.clientX, e.clientY);
       var cellEl = el && el.closest ? el.closest(".wordsearch-cell") : null;
       if (!cellEl) return;
       var r = parseInt(cellEl.getAttribute("data-r"), 10);
       var c = parseInt(cellEl.getAttribute("data-c"), 10);
+      if (r === pressState.r && c === pressState.c) return;
+
+      if (!pressState.moved) {
+        pressState.moved = true;
+        selStart = { r: pressState.r, c: pressState.c };
+      }
       updatePathPreview(r, c);
     }
 
     function onDragEnd(e) {
       document.removeEventListener("pointermove", onDragMove);
       document.removeEventListener("pointerup", onDragEnd);
-      if (!dragging) return;
-      dragging = false;
-      var el = document.elementFromPoint(e.clientX, e.clientY);
-      var cellEl = el && el.closest ? el.closest(".wordsearch-cell") : null;
-      if (cellEl) {
-        var r = parseInt(cellEl.getAttribute("data-r"), 10);
-        var c = parseInt(cellEl.getAttribute("data-c"), 10);
-        completeSelection(r, c);
-      } else {
-        selStart = null;
-        render();
+      if (!pressState) return;
+      var wasDrag = pressState.moved;
+      var startR = pressState.r, startC = pressState.c;
+      pressState = null;
+
+      if (wasDrag) {
+        var el = document.elementFromPoint(e.clientX, e.clientY);
+        var cellEl = el && el.closest ? el.closest(".wordsearch-cell") : null;
+        if (cellEl) {
+          var r = parseInt(cellEl.getAttribute("data-r"), 10);
+          var c = parseInt(cellEl.getAttribute("data-c"), 10);
+          completeSelection(r, c);
+        } else {
+          clearPreview();
+          selStart = null;
+          render();
+        }
+        return;
       }
+
+      // Plain tap, no movement: fall back to the classic first-tap/second-tap flow.
+      if (!selStart) {
+        selStart = { r: startR, c: startC };
+        render();
+      } else {
+        completeSelection(startR, startC);
+      }
+    }
+
+    function clearPreview() {
+      container.querySelectorAll(".wordsearch-cell").forEach(function (cellEl) {
+        cellEl.classList.remove("selecting");
+      });
     }
 
     function completeSelection(r, c) {
