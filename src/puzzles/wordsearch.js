@@ -6,11 +6,11 @@ DB.WordSearchPuzzle = {
   emoji: "🔎",
   SIZE: 8,
   WORD_POOL: {
-    nl: ["KAT", "HOND", "VOGEL", "PAARD", "VIS", "UIL", "BEER", "WOLF"],
-    en: ["CAT", "DOG", "BIRD", "HORSE", "FISH", "OWL", "BEAR", "WOLF"],
-    de: ["KATZE", "HUND", "VOGEL", "PFERD", "FISCH", "EULE", "BAER", "WOLF"],
-    fr: ["CHAT", "CHIEN", "OISEAU", "CHEVAL", "POISSON", "HIBOU", "OURS", "LOUP"],
-    es: ["GATO", "PERRO", "AVE", "CABALLO", "PEZ", "BUHO", "OSO", "LOBO"]
+    nl: ["KAT", "HOND", "VOGEL", "PAARD", "VIS", "UIL", "BEER", "WOLF", "LEEUW", "TIJGER", "OLIFANT", "GIRAFFE", "ZEBRA", "AAP", "KROKODIL", "DOLFIJN", "HAAI", "SCHAAP", "GEIT", "KOE", "VARKEN", "KIP", "EEND", "MUIS", "KONIJN", "VOS", "HERT", "EEKHOORN", "PINGUIN", "KOALA", "PANDA", "KAMEEL", "EZEL", "SLANG", "KIKKER", "SPIN", "MIER", "BIJ"],
+    en: ["CAT", "DOG", "BIRD", "HORSE", "FISH", "OWL", "BEAR", "WOLF", "LION", "TIGER", "ELEPHANT", "GIRAFFE", "ZEBRA", "MONKEY", "LIZARD", "DOLPHIN", "SHARK", "SHEEP", "GOAT", "COW", "PIG", "CHICKEN", "DUCK", "MOUSE", "RABBIT", "FOX", "DEER", "SQUIRREL", "PENGUIN", "KOALA", "PANDA", "CAMEL", "DONKEY", "SNAKE", "FROG", "SPIDER", "ANT", "BEE"],
+    de: ["KATZE", "HUND", "VOGEL", "PFERD", "FISCH", "EULE", "BAER", "WOLF", "LOEWE", "TIGER", "ELEFANT", "GIRAFFE", "ZEBRA", "AFFE", "KROKODIL", "DELFIN", "HAI", "SCHAF", "ZIEGE", "KUH", "SCHWEIN", "HUHN", "ENTE", "MAUS", "ADLER", "FUCHS", "HIRSCH", "IGEL", "PINGUIN", "KOALA", "PANDA", "KAMEL", "ESEL", "SCHLANGE", "FROSCH", "SPINNE", "AMEISE", "BIENE"],
+    fr: ["CHAT", "CHIEN", "OISEAU", "CHEVAL", "POISSON", "HIBOU", "OURS", "LOUP", "LION", "TIGRE", "ELEPHANT", "GIRAFE", "ZEBRE", "SINGE", "LEZARD", "DAUPHIN", "REQUIN", "MOUTON", "CHEVRE", "VACHE", "COCHON", "POULE", "CANARD", "SOURIS", "LAPIN", "RENARD", "CERF", "ECUREUIL", "PINGOUIN", "KOALA", "PANDA", "CHAMEAU", "ANE", "SERPENT", "TORTUE", "ARAIGNEE", "FOURMI", "ABEILLE"],
+    es: ["GATO", "PERRO", "AVE", "CABALLO", "PEZ", "BUHO", "OSO", "LOBO", "LEON", "TIGRE", "ELEFANTE", "JIRAFA", "CEBRA", "MONO", "LAGARTO", "DELFIN", "TIBURON", "OVEJA", "CABRA", "VACA", "CERDO", "GALLINA", "PATO", "RATON", "CONEJO", "ZORRO", "CIERVO", "ARDILLA", "PINGUINO", "KOALA", "PANDA", "CAMELLO", "BURRO", "VIBORA", "RANA", "ARANA", "HORMIGA", "ABEJA"]
   },
   ALPHABET: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   DIRS: [[0, 1], [1, 0], [1, 1], [-1, 1]],
@@ -23,7 +23,7 @@ DB.WordSearchPuzzle = {
       var j = Math.floor(rng() * (i + 1));
       var t = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = t;
     }
-    var chosen = shuffled.slice(0, 5);
+    var chosen = shuffled.slice(0, 5).sort(function (a, b) { return b.length - a.length; });
 
     var grid = [];
     for (var r = 0; r < SIZE; r++) { grid.push(new Array(SIZE).fill(null)); }
@@ -33,7 +33,7 @@ DB.WordSearchPuzzle = {
 
     chosen.forEach(function (word) {
       var placed = false;
-      for (var attempt = 0; attempt < 300 && !placed; attempt++) {
+      for (var attempt = 0; attempt < 500 && !placed; attempt++) {
         var dir = dirs[Math.floor(rng() * dirs.length)];
         var r0 = Math.floor(rng() * SIZE);
         var c0 = Math.floor(rng() * SIZE);
