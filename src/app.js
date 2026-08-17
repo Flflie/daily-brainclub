@@ -188,7 +188,7 @@ DB.renderHome = function () {
     cosmeticNoticeHtml +
     '<div class="card">' +
       '<div class="date-line">' + DB.formatDate() + '</div>' +
-      '<h2>' + DB.t("home.greeting", { name: state.firstName }) + '</h2>' +
+      '<h2 class="greeting-heading">' + DB.t("home.greeting", { name: state.firstName }) + '</h2>' +
       (playedToday
         ? '<p class="muted">' + DB.t("home.playedToday", { score: todayScore }) + '</p>'
         : '<p class="muted">' + DB.t("home.notPlayedYet", { n: DB.PUZZLE_ORDER.length }) + '</p>') +

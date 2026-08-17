@@ -344,6 +344,10 @@ h1, h2, h3 { margin: 0 0 8px; }
   margin-bottom: 2px;
   text-transform: capitalize;
 }
+.greeting-heading {
+  font-size: 18.72px;
+  color: #3b82f6;
+}
 
 .greeting-row {
   color: #2563eb;
