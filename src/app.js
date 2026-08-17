@@ -185,11 +185,10 @@ DB.renderHome = function () {
 
   DB.appRoot.innerHTML =
     DB.renderHeader(state) +
-    '<div class="greeting-row">' + DB.t("home.greeting", { name: state.firstName }) + '</div>' +
     cosmeticNoticeHtml +
     '<div class="card">' +
       '<div class="date-line">' + DB.formatDate() + '</div>' +
-      '<h2>' + DB.t("home.missionTitle") + '</h2>' +
+      '<h2>' + DB.t("home.greeting", { name: state.firstName }) + '</h2>' +
       (playedToday
         ? '<p class="muted">' + DB.t("home.playedToday", { score: todayScore }) + '</p>'
         : '<p class="muted">' + DB.t("home.notPlayedYet", { n: DB.PUZZLE_ORDER.length }) + '</p>') +
