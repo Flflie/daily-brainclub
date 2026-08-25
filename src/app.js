@@ -573,5 +573,6 @@ document.addEventListener("click", function (e) {
 DB.applyTheme(DB.loadState());
 DB.applyColorTheme(DB.loadState());
 DB.renderHome();
+DB.initAdBanner();
 
 window.DB = DB;

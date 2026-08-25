@@ -45,4 +45,23 @@ DB.renderAdBreak = function (onDone) {
   });
 };
 
+DB.adBannerIndex = 0;
+
+DB.renderAdBannerContent = function () {
+  var el = document.getElementById("adBanner");
+  if (!el) return;
+  var creative = DB.AD_CREATIVES[DB.adBannerIndex % DB.AD_CREATIVES.length];
+  DB.adBannerIndex++;
+  el.style.background = creative.bg;
+  el.innerHTML =
+    '<span class="ad-banner-label">' + DB.t("ad.label") + '</span>' +
+    '<span class="ad-banner-emoji">' + creative.emoji + '</span>' +
+    '<span class="ad-banner-title">' + DB.t(creative.titleKey) + '</span>';
+};
+
+DB.initAdBanner = function () {
+  DB.renderAdBannerContent();
+  setInterval(DB.renderAdBannerContent, 8000);
+};
+
 window.DB = DB;
