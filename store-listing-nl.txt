@@ -1,25 +1,47 @@
-Daily BrainClub is jouw dagelijkse puzzelmoment. Elke dag wacht een nieuwe set van 7 korte puzzels — los ze op in je eigen tempo, of race tegen de klok voor een bonus.
+=== APP NAME ===
+Daily BrainClub
 
-🧩 7 PUZZELTYPES
-Woordzoeker, mini sudoku, blokkenpuzzel, geheugenspel, woord raden, rekenpuzzel en logische puzzel — elke dag een nieuwe, willekeurige mix.
+=== SHORT DESCRIPTION (max 80 tekens) ===
+Los elke dag 7 puzzels op, bouw je streak op en verzamel badges & albums!
+
+=== FULL DESCRIPTION ===
+Daily BrainClub is jouw dagelijkse puzzelmoment. Elke dag wacht een nieuwe set van 7 korte puzzels — los ze op in je eigen tempo, of race tegen de klok voor een bonus. Ideaal om je brein scherp te houden, of je nu 8 of 88 bent.
+
+👥 VOOR WIE IS DEZE APP?
+Voor iedereen die op een luchtige, laagdrempelige manier het brein wil trainen — bijvoorbeeld:
+• Senioren die hun geheugen scherp willen houden
+• Mensen die revalideren van hersenletsel en op eigen tempo willen oefenen
+• Kinderen die spelenderwijs willen puzzelen
+• Of gewoon iedereen die dagelijks een paar minuten leuke puzzels wil doen
+
+🧩 7 PUZZELTYPES, ELKE DAG NIEUW
+Woordzoeker, mini sudoku, blokkenpuzzel, geheugenspel, woord raden, rekenpuzzel en logische puzzel. Elke dag krijgt iedereen dezelfde willekeurige mix, zodat je met vrienden en familie kunt vergelijken wie de beste dagscore heeft.
+
+⚡ SPEEL OP JE EIGEN TEMPO
+Geen harde tijdslimiet: los elke puzzel op wanneer het jou uitkomt. Wil je een uitdaging? Los een puzzel binnen 2 minuten op voor een extra bonus.
 
 🔥 BOUW JE STREAK OP
-Speel elke dag om je streak levend te houden. Elke week verdien je een nieuwe badge en beker, elke 30 dagen een gouden medaille met exclusieve achtergrond en avatar, en na 100 dagen ontgrendel je elite-status.
+Speel elke dag om je streak levend te houden.
+• Elke week: een nieuwe badge, een beker én een wekelijkse uitdaging
+• Elke 30 dagen: een gouden medaille met een exclusieve, zelf te activeren achtergrond en avatar
+• Na 100 dagen: elite-status
 
-🎴 VERZAMEL ALBUMS
-Vijf prachtige verzamelalbums vol echte foto's: oldtimers, bloemen, kastelen, dieren en Nederlandse steden. Verdien kaarten door te spelen en maak elk album compleet voor een unieke beloning.
+🎴 VERZAMEL 5 ALBUMS VOL ECHTE FOTO'S
+Oude auto's, bloemen, kastelen, dieren en Nederlandse steden. Verdien kaarten door te spelen en maak elk album compleet voor een unieke beloning.
 
-🎮 SPEEL SAMEN
-Start een multiplayer-room, deel de code met vrienden en speel dezelfde puzzels tegelijk. Bekijk live wie er voorstaat.
+🎮 SPEEL SAMEN MET VRIENDEN
+Start een multiplayer-room, deel de code, en speel dezelfde puzzels tegelijk. Volg live wie er voorstaat.
 
 🏆 DAGELIJKSE RANGLIJST
-Vergelijk je dagscore met andere spelers wereldwijd.
+Vergelijk je dagscore met andere spelers, wereldwijd.
 
-🕹️ OEFENEN KAN OOK
-Wil je gewoon een puzzel spelen zonder de dagelijkse missie? Tik op een puzzel om los te oefenen, wanneer je maar wilt.
+🕹️ OOK LOSSE PUZZELS OEFENEN
+Geen zin in de hele dagelijkse missie? Tik op een losse puzzel om die te oefenen, wanneer je maar wilt — zonder dat het je streak beïnvloedt.
 
-🌍 NEDERLANDS EN ENGELS
-Speel de app volledig in het Nederlands of Engels — schakel op elk moment.
+🎨 HELEMAAL NAAR JOUW SMAAK
+• Licht of donker thema, of automatisch op basis van je toestel
+• Persoonlijke begroeting met je eigen voornaam
+• 5 talen: Nederlands, Engels, Duits, Frans en Spaans — schakel op elk moment
 
 Gratis te spelen, met af en toe een korte reclame-onderbreking tussen puzzels door.
 
