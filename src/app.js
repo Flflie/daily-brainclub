@@ -484,6 +484,7 @@ DB.finishCurrentPuzzle = function (result, withinBonus) {
 
 DB.renderTransition = function (step, result, withinBonus, onContinue) {
   DB.appRoot.innerHTML =
+    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div>' + DB.homeBtn() + '</div>' +
     '<div class="card center">' +
       '<div class="transition-emoji">' + step.def.emoji + '</div>' +
       '<h2>' + DB.puzzleTitle(step.def.id) + ' ' + DB.t("run.finished") + '</h2>' +
