@@ -4,10 +4,11 @@ DB.AD_INTERVAL = 2;
 DB.adBreakCount = 0;
 
 // --- Native AdMob (only active inside the Capacitor app, never in a plain browser/PWA) ---
-// TODO: replace with real ad unit IDs once AdMob approves them (see PROJECT_STATUS.md).
-// These are Google's official public test IDs - safe to ship, always serve a test ad, never real revenue.
-DB.ADMOB_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
-DB.ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
+// Real ad unit IDs from Florence's AdMob account (app: Daily BrainClub,
+// ca-app-pub-9403666503824494~2411928928). Requires the matching real
+// App ID to be compiled into the native app's strings.xml - see PROJECT_STATUS.md.
+DB.ADMOB_INTERSTITIAL_ID = "ca-app-pub-9403666503824494/9754984908";
+DB.ADMOB_BANNER_ID = "ca-app-pub-9403666503824494/8717235408";
 
 DB.isNativeApp = function () {
   return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
