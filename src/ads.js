@@ -82,11 +82,15 @@ DB.renderNativeInterstitial = function (onDone) {
   var AdMob = window.Capacitor.Plugins.AdMob;
   var done = false;
   var listeners = [];
+  var wasHidden = false;
 
   function finish() {
     if (done) return;
     done = true;
+    clearTimeout(loadTimer);
+    clearTimeout(watchdogTimer);
     listeners.forEach(function (l) { l.remove(); });
+    document.removeEventListener("visibilitychange", onVisibilityChange);
     onDone();
   }
 
@@ -95,20 +99,40 @@ DB.renderNativeInterstitial = function (onDone) {
     listeners.push({ remove: function () { p.then(function (h) { h.remove(); }); } });
   }
 
-  // Safety net: never let a broken ad SDK soft-lock the daily mission.
-  var safetyTimer = setTimeout(finish, 8000);
-  var wrappedFinish = function () { clearTimeout(safetyTimer); finish(); };
+  // The interstitial covers our WebView with its own native screen, which
+  // pauses the page (document.visibilityState -> "hidden"). Once the player
+  // closes the ad and we come back to "visible", that's a reliable, SDK-
+  // version-independent signal that the ad is gone - regardless of whether
+  // the plugin's own "dismissed" event fires correctly on this device.
+  function onVisibilityChange() {
+    if (document.visibilityState === "hidden") {
+      wasHidden = true;
+    } else if (document.visibilityState === "visible" && wasHidden) {
+      finish();
+    }
+  }
+  document.addEventListener("visibilitychange", onVisibilityChange);
 
-  on("interstitialAdDismissed", wrappedFinish);
-  on("interstitialAdFailedToShow", wrappedFinish);
-  on("interstitialAdFailedToLoad", wrappedFinish);
+  // Only guards the *loading* phase - if nothing happens within 8s of asking
+  // for an ad, skip it. Once the ad is actually showing, this is cleared, so
+  // a real ad being legitimately on screen for a while never gets cut off.
+  var loadTimer = setTimeout(finish, 8000);
+  // Last-resort watchdog once the ad is up, in case both the plugin event
+  // AND the visibility signal somehow fail to fire.
+  var watchdogTimer = null;
+
+  on("interstitialAdDismissed", finish);
+  on("interstitialAdFailedToShow", finish);
+  on("interstitialAdFailedToLoad", finish);
   on("interstitialAdLoaded", function () {
-    AdMob.showInterstitial().catch(wrappedFinish);
+    clearTimeout(loadTimer);
+    watchdogTimer = setTimeout(finish, 45000);
+    AdMob.showInterstitial().catch(finish);
   });
 
   DB.initNativeAdMob().then(function () {
     return AdMob.prepareInterstitial({ adId: DB.ADMOB_INTERSTITIAL_ID });
-  }).catch(wrappedFinish);
+  }).catch(finish);
 };
 
 DB.adBannerIndex = 0;
