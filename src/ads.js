@@ -95,8 +95,11 @@ DB.renderNativeInterstitial = function (onDone) {
   }
 
   function on(eventName, handler) {
+    // addListener's return value isn't reliably a Promise across Capacitor/
+    // plugin versions - sometimes it's the handle itself, synchronously.
+    // Promise.resolve() normalizes both shapes so .then() always works.
     var p = AdMob.addListener(eventName, handler);
-    listeners.push({ remove: function () { p.then(function (h) { h.remove(); }); } });
+    listeners.push({ remove: function () { Promise.resolve(p).then(function (h) { h.remove(); }); } });
   }
 
   // The interstitial covers our WebView with its own native screen, which
