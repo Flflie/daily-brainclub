@@ -122,7 +122,7 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px 16px 90px;
+  padding: 20px 16px var(--ad-clearance, 90px);
 }
 
 h1, h2, h3 { margin: 0 0 8px; }

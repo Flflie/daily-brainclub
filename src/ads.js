@@ -158,8 +158,22 @@ DB.initAdBanner = function () {
     // DOM placeholder underneath must stay hidden so they don't overlap.
     var el = document.getElementById("adBanner");
     if (el) el.style.display = "none";
+
+    var AdMob = window.Capacitor.Plugins.AdMob;
+    // The native banner's real height varies per device/ad (adaptive
+    // banners resize to fit). Rather than guess a fixed CSS clearance,
+    // ask AdMob for the actual displayed height and reserve exactly that
+    // much space (plus a little breathing room) above it.
+    AdMob.addListener("bannerAdSizeChanged", function (size) {
+      // A hidden/removed/failed banner reports height 0 - ignore that and
+      // keep the CSS fallback rather than collapsing the clearance to 0.
+      if (size && size.height > 0) {
+        document.documentElement.style.setProperty("--ad-clearance", (size.height + 20) + "px");
+      }
+    });
+
     DB.initNativeAdMob().then(function () {
-      return window.Capacitor.Plugins.AdMob.showBanner({
+      return AdMob.showBanner({
         adId: DB.ADMOB_BANNER_ID,
         adSize: "ADAPTIVE_BANNER",
         position: "BOTTOM_CENTER",
