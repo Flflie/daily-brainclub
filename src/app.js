@@ -663,7 +663,7 @@ DB.finishRun = function () {
     '<div class="result-breakdown">' + rows + '</div>' +
     '<button class="btn secondary" id="lbViewBtn" style="margin-top:10px">' + DB.t("lb.viewBtn") + '</button>' +
     '<button class="btn secondary" id="viewAlbumsBtn" style="margin-top:10px">' + DB.t("run.viewAlbums") + '</button>' +
-    '<button class="btn secondary" id="backHome" style="margin-top:10px">' + DB.t("run.backHome") + '</button>';
+    '<button class="btn" id="backHome" style="margin-top:10px">' + DB.t("run.backHome") + '</button>';
 
   var shareText = DB.buildDailyShareText(dailyScore, rs.results, outcome.state.streak);
   document.getElementById("shareResultBtn").addEventListener("click", function () {
