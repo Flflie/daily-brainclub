@@ -203,6 +203,7 @@ h1, h2, h3 { margin: 0 0 8px; }
   align-items: center;
   justify-content: center;
 }
+.header-share-btn { color: var(--accent); }
 .settings-toggle:hover,
 .header-share-btn:hover { opacity: 0.85; }
 

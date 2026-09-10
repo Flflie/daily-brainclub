@@ -25,6 +25,17 @@ DB.formatDate = function () {
   return d.toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" });
 };
 
+// The classic "share" glyph: three nodes joined by two lines.
+DB.SHARE_ICON =
+  '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" ' +
+  'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+  '<circle cx="18" cy="5" r="3"></circle>' +
+  '<circle cx="6" cy="12" r="3"></circle>' +
+  '<circle cx="18" cy="19" r="3"></circle>' +
+  '<line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line>' +
+  '<line x1="15.4" y1="6.5" x2="8.6" y2="10.5"></line>' +
+  '</svg>';
+
 DB.renderHeader = function (state) {
   var avatarStyle = state.activeAvatar && DB.AVATAR_STYLES[state.activeAvatar];
   var avatarHtml = avatarStyle
@@ -74,7 +85,7 @@ DB.renderHeader = function (state) {
       '<div class="header-right">' +
         DB.homeBtn() +
         '<div class="streak-pill">🔥 ' + state.streak + '</div>' +
-        '<button class="header-share-btn" id="headerShareBtn" aria-label="' + DB.t("home.shareAppBtn") + '" title="' + DB.t("home.shareAppBtn") + '">📤</button>' +
+        '<button class="header-share-btn" id="headerShareBtn" aria-label="' + DB.t("home.shareAppBtn") + '" title="' + DB.t("home.shareAppBtn") + '">' + DB.SHARE_ICON + '</button>' +
         '<div class="settings-wrap">' +
           '<button class="settings-toggle" id="settingsBtn" aria-label="Settings">⚙️</button>' +
           settingsPanelHtml +
@@ -531,11 +542,12 @@ DB.flashToast = function (msg) {
   }, 3400);
 };
 
-// One bonus album card per day for sharing (a result OR the app itself).
-// We can't verify a share actually completed - the OS returns nothing
-// useful on Android - so the once-a-day cap is the abuse guard, and the
-// bonus only lands if you've actually played today's mission, which
-// keeps it a completion nudge rather than a way to farm cards.
+// The daily "share loop": the first share of the day (after you've
+// played) gives one bonus album card AND shows one ad. Both are capped
+// to once per calendar day via shareBonusDate - we can't verify a share
+// actually completed (the OS returns nothing useful on Android), so the
+// once-a-day cap plus the "must have played" check is what stops it
+// being farmed or turned into an ad flood by tapping share repeatedly.
 DB.rewardShare = function () {
   var state = DB.loadState();
   var today = DB.todayStr();
@@ -548,6 +560,11 @@ DB.rewardShare = function () {
   DB.saveState(state);
   DB.awardDailyCards(1);
   DB.flashToast(DB.t("share.bonusToast"));
+  // Let the bonus toast land, then show one ad and return to the
+  // screen the player was on.
+  setTimeout(function () {
+    DB.renderAdBreak(function () { (DB.lastRender || DB.renderHome)(); });
+  }, 1600);
 };
 
 // Opens the OS share sheet where available (native app via the Capacitor
