@@ -31,7 +31,8 @@ DB.defaultState = function () {
     colorTheme: "auto",
     shareBonusDate: null,
     mpFinishedDate: null,
-    streakShields: 0
+    streakShields: 0,
+    recentPuzzleWords: {}
   };
 };
 
@@ -754,6 +755,31 @@ DB.recordRunCompleted = function (dailyScore, allBonus) {
 DB.hasPlayedToday = function () {
   var state = DB.loadState();
   return !!state.history[DB.todayStr()];
+};
+
+// How many recently-seen words to remember per word puzzle, so the same
+// ones don't come back on the next few plays. Roughly 4 plays' worth.
+DB.RECENT_WORDS_KEEP = { wordsearch: 24, wordguess: 16 };
+
+DB.getRecentWords = function (puzzleId) {
+  var state = DB.loadState();
+  var rec = state.recentPuzzleWords || {};
+  return (rec[puzzleId] || []).slice();
+};
+
+DB.recordRecentWords = function (puzzleId, words) {
+  if (!words || !words.length) return;
+  var state = DB.loadState();
+  if (!state.recentPuzzleWords) state.recentPuzzleWords = {};
+  var keep = DB.RECENT_WORDS_KEEP[puzzleId] || 16;
+  var merged = words.concat(state.recentPuzzleWords[puzzleId] || []);
+  var seen = {};
+  var deduped = [];
+  merged.forEach(function (w) {
+    if (!seen[w]) { seen[w] = true; deduped.push(w); }
+  });
+  state.recentPuzzleWords[puzzleId] = deduped.slice(0, keep);
+  DB.saveState(state);
 };
 
 // Deterministic daily seed so everyone (in this prototype: this device) gets

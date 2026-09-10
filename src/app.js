@@ -260,7 +260,10 @@ DB.renderHome = function () {
 };
 
 DB.startPractice = function (puzzleDef) {
-  DB.practiceState = { def: puzzleDef, data: puzzleDef.generate(Math.random), abandoning: false, controller: null };
+  var data = puzzleDef.generate(Math.random, { avoid: DB.getRecentWords(puzzleDef.id) });
+  var words = data.words || (data.word ? [data.word] : []);
+  DB.recordRecentWords(puzzleDef.id, words);
+  DB.practiceState = { def: puzzleDef, data: data, abandoning: false, controller: null };
   DB.renderPracticeStep();
 };
 
@@ -412,8 +415,14 @@ DB.startRun = function () {
 
   DB.fetchDailySeed().then(function (seed) {
     var rng = DB.mulberry32(seed);
+    // The daily puzzle stays seed-only (everyone gets the same one), but we
+    // still log its words as "recently seen" so practice right afterwards
+    // doesn't hand you the exact same wordsearch/word-guess.
     var puzzles = DB.PUZZLE_ORDER.map(function (p) {
-      return { def: p, data: p.generate(rng) };
+      var data = p.generate(rng);
+      var words = data.words || (data.word ? [data.word] : []);
+      DB.recordRecentWords(p.id, words);
+      return { def: p, data: data };
     });
 
     DB.runState = {
