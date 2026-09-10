@@ -190,7 +190,8 @@ h1, h2, h3 { margin: 0 0 8px; }
   justify-content: center;
 }
 
-.settings-toggle {
+.settings-toggle,
+.header-share-btn {
   border: none;
   background: var(--surface-2);
   font-size: 15px;
@@ -202,7 +203,8 @@ h1, h2, h3 { margin: 0 0 8px; }
   align-items: center;
   justify-content: center;
 }
-.settings-toggle:hover { opacity: 0.85; }
+.settings-toggle:hover,
+.header-share-btn:hover { opacity: 0.85; }
 
 .settings-panel {
   position: absolute;

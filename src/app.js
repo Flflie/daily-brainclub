@@ -74,6 +74,7 @@ DB.renderHeader = function (state) {
       '<div class="header-right">' +
         DB.homeBtn() +
         '<div class="streak-pill">🔥 ' + state.streak + '</div>' +
+        '<button class="header-share-btn" id="headerShareBtn" aria-label="' + DB.t("home.shareAppBtn") + '" title="' + DB.t("home.shareAppBtn") + '">📤</button>' +
         '<div class="settings-wrap">' +
           '<button class="settings-toggle" id="settingsBtn" aria-label="Settings">⚙️</button>' +
           settingsPanelHtml +
@@ -200,7 +201,6 @@ DB.renderHome = function () {
     '</button>' +
     '<button class="btn secondary" id="mpEntryBtn" style="margin-top:10px">' + DB.t("home.multiplayerBtn") + '</button>' +
     '<button class="btn secondary" id="lbEntryBtn" style="margin-top:10px">' + DB.t("lb.viewBtn") + '</button>' +
-    '<button class="btn share" id="shareAppBtn" style="margin-top:10px">' + DB.t("home.shareAppBtn") + '</button>' +
     '<div class="card" style="margin-top:14px">' +
       '<h3>' + DB.t("home.milestones") + '</h3>' +
       milestonesHtml +
@@ -227,7 +227,6 @@ DB.renderHome = function () {
   document.getElementById("viewAchievementsBtn").addEventListener("click", DB.renderAchievements);
   document.getElementById("mpEntryBtn").addEventListener("click", DB.renderMultiplayerHome);
   document.getElementById("lbEntryBtn").addEventListener("click", DB.renderLeaderboard);
-  document.getElementById("shareAppBtn").addEventListener("click", function () { DB.shareApp(this); });
   var cosmeticNotice = document.getElementById("cosmeticNotice");
   if (cosmeticNotice) {
     cosmeticNotice.addEventListener("click", DB.renderAchievements);

@@ -71,6 +71,10 @@ DB.bindHeader = function () {
       DB.renderWelcome();
     });
   }
+  var headerShareBtn = document.getElementById("headerShareBtn");
+  if (headerShareBtn) {
+    headerShareBtn.addEventListener("click", function () { DB.shareApp(this); });
+  }
 };
 
 DB.UI = {
