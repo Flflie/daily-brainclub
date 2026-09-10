@@ -497,6 +497,55 @@ DB.renderTransition = function (step, result, withinBonus, onContinue) {
   document.getElementById("continueBtn").addEventListener("click", onContinue);
 };
 
+// Short, memorable link that lands on the Play Store listing (no "florence" in it).
+DB.SHARE_URL = "https://tinyurl.com/dailybrainclub";
+
+// Spoiler-free result summary, Wordle-style: an abstract row of marks
+// (⚡ = solved inside the 2-min bonus, ⬜ = solved but slower) plus the score
+// and streak. Never reveals answers or even which puzzles came up.
+DB.buildDailyShareText = function (dailyScore, results, streak) {
+  var marks = results.map(function (r) { return r.withinBonus ? "⚡" : "⬜"; }).join("");
+  var locale = DB.currentLang() === "en" ? "en-US" : DB.currentLang() === "nl" ? "nl-NL" : DB.currentLang();
+  var date = new Date().toLocaleDateString(locale, { day: "numeric", month: "long" });
+  return DB.t("share.text", {
+    date: date,
+    marks: marks,
+    score: dailyScore,
+    streak: streak,
+    unit: DB.dayWord(streak),
+    url: DB.SHARE_URL
+  });
+};
+
+// Opens the OS share sheet where available (native app + most phones),
+// otherwise copies to the clipboard and confirms on the button itself.
+DB.shareDailyResult = function (text, btn) {
+  if (navigator.share) {
+    navigator.share({ text: text }).catch(function () {});
+    return;
+  }
+  var confirmCopied = function () {
+    if (!btn) return;
+    var original = btn.textContent;
+    btn.textContent = DB.t("share.copied");
+    btn.disabled = true;
+    setTimeout(function () { btn.textContent = original; btn.disabled = false; }, 2600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(confirmCopied).catch(confirmCopied);
+    return;
+  }
+  var ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); } catch (e) {}
+  document.body.removeChild(ta);
+  confirmCopied();
+};
+
 DB.finishRun = function () {
   var rs = DB.runState;
   var dailyScore = Math.round(rs.results.reduce(function (sum, r) { return sum + r.score; }, 0) / rs.results.length);
@@ -557,10 +606,15 @@ DB.finishRun = function () {
     badgeHtml +
     cardsHtml +
     '<div class="result-breakdown">' + rows + '</div>' +
+    '<button class="btn" id="shareResultBtn">' + DB.t("run.shareBtn") + '</button>' +
     '<button class="btn secondary" id="lbViewBtn" style="margin-top:10px">' + DB.t("lb.viewBtn") + '</button>' +
     '<button class="btn secondary" id="viewAlbumsBtn" style="margin-top:10px">' + DB.t("run.viewAlbums") + '</button>' +
     '<button class="btn secondary" id="backHome" style="margin-top:10px">' + DB.t("run.backHome") + '</button>';
 
+  var shareText = DB.buildDailyShareText(dailyScore, rs.results, outcome.state.streak);
+  document.getElementById("shareResultBtn").addEventListener("click", function () {
+    DB.shareDailyResult(shareText, this);
+  });
   document.getElementById("backHome").addEventListener("click", DB.renderHome);
   document.getElementById("viewAlbumsBtn").addEventListener("click", DB.renderAlbums);
   document.getElementById("lbViewBtn").addEventListener("click", DB.renderLeaderboard);

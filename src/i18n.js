@@ -242,6 +242,9 @@ DB.UI = {
     "run.finished": "klaar!",
     "run.viewAlbums": "Bekijk albums",
     "run.backHome": "Terug naar overzicht",
+    "run.shareBtn": "Deel je resultaat",
+    "share.text": "🧠 Daily BrainClub · {date}\n{marks}  ·  {score} punten\n🔥 Streak: {streak} {unit}\n\n{url}",
+    "share.copied": "Gekopieerd — plak het in een chat of story!",
 
     "math.confirm": "Bevestig",
     "math.correct": "Goed: ",
@@ -449,6 +452,9 @@ DB.UI = {
     "run.finished": "done!",
     "run.viewAlbums": "View albums",
     "run.backHome": "Back to overview",
+    "run.shareBtn": "Share your result",
+    "share.text": "🧠 Daily BrainClub · {date}\n{marks}  ·  {score} points\n🔥 Streak: {streak} {unit}\n\n{url}",
+    "share.copied": "Copied — paste it in a chat or story!",
 
     "math.confirm": "Confirm",
     "math.correct": "Correct: ",
@@ -656,6 +662,9 @@ DB.UI = {
     "run.finished": "fertig!",
     "run.viewAlbums": "Alben ansehen",
     "run.backHome": "Zurück zur Übersicht",
+    "run.shareBtn": "Ergebnis teilen",
+    "share.text": "🧠 Daily BrainClub · {date}\n{marks}  ·  {score} Punkte\n🔥 Serie: {streak} {unit}\n\n{url}",
+    "share.copied": "Kopiert — füg es in einen Chat oder eine Story ein!",
 
     "math.confirm": "Bestätigen",
     "math.correct": "Richtig: ",
@@ -863,6 +872,9 @@ DB.UI = {
     "run.finished": "terminé !",
     "run.viewAlbums": "Voir les albums",
     "run.backHome": "Retour à l'accueil",
+    "run.shareBtn": "Partager ton résultat",
+    "share.text": "🧠 Daily BrainClub · {date}\n{marks}  ·  {score} points\n🔥 Série : {streak} {unit}\n\n{url}",
+    "share.copied": "Copié — colle-le dans un chat ou une story !",
 
     "math.confirm": "Valider",
     "math.correct": "Bon : ",
@@ -1070,6 +1082,9 @@ DB.UI = {
     "run.finished": "¡completado!",
     "run.viewAlbums": "Ver álbumes",
     "run.backHome": "Volver al inicio",
+    "run.shareBtn": "Comparte tu resultado",
+    "share.text": "🧠 Daily BrainClub · {date}\n{marks}  ·  {score} puntos\n🔥 Racha: {streak} {unit}\n\n{url}",
+    "share.copied": "¡Copiado — pégalo en un chat o story!",
 
     "math.confirm": "Confirmar",
     "math.correct": "Correctas: ",
