@@ -202,9 +202,9 @@ DB.renderHome = function () {
       '<h2 class="greeting-heading">' + DB.t("home.greeting", { name: state.firstName }) + '</h2>' +
       '<p class="muted practice-hint">' + DB.t("home.practiceHint") + '</p>' +
       '<div class="home-stats-row">' +
-        '<div class="home-stat" title="' + DB.t("home.statScore") + '">🎯 <b>' + (playedToday ? todayScore : "–") + '</b></div>' +
-        '<div class="home-stat" title="' + DB.t("home.statStreak") + '">🔥 <b>' + state.streak + '</b></div>' +
-        '<div class="home-stat" title="' + DB.t("home.statShield") + '">🛡️ <b>' + (state.streakShields || 0) + '</b></div>' +
+        '<div class="home-stat">🎯 <b>' + (playedToday ? todayScore : "–") + '</b><span class="home-stat-label">' + DB.t("home.statScore") + '</span></div>' +
+        '<div class="home-stat">🔥 <b>' + state.streak + '</b><span class="home-stat-label">' + DB.t("home.statStreak") + '</span></div>' +
+        '<div class="home-stat">🛡️ <b>' + (state.streakShields || 0) + '</b><span class="home-stat-label">' + DB.t("home.statShield") + '</span></div>' +
       '</div>' +
       '<div class="puzzle-grid">' + puzzleTiles + soonTiles + '</div>' +
     '</div>' +
