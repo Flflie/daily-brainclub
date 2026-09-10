@@ -541,7 +541,7 @@ DB.rewardShare = function () {
   var state = DB.loadState();
   var today = DB.todayStr();
   if (state.shareBonusDate === today) return;
-  if (!DB.hasPlayedToday()) {
+  if (!DB.hasPlayedToday() && state.mpFinishedDate !== today) {
     DB.flashToast(DB.t("share.bonusNeedsPlay"));
     return;
   }

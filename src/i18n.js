@@ -151,6 +151,8 @@ DB.UI = {
     "mp.results.finishedTag": "klaar",
     "mp.results.progress": "{done}/{total} puzzels",
     "mp.exitBtn": "Verlaat room",
+    "mp.results.shareBtn": "Deel de ranglijst",
+    "mp.share.text": "🧠 Daily BrainClub — multiplayer\n\n{standings}\n\nSpeel je mee?\n{url}",
 
     "lb.viewBtn": "🏆 Dagranglijst",
     "lb.title": "Dagranglijst",
@@ -365,6 +367,8 @@ DB.UI = {
     "mp.results.finishedTag": "done",
     "mp.results.progress": "{done}/{total} puzzles",
     "mp.exitBtn": "Leave room",
+    "mp.results.shareBtn": "Share the standings",
+    "mp.share.text": "🧠 Daily BrainClub — multiplayer\n\n{standings}\n\nWant to join?\n{url}",
 
     "lb.viewBtn": "🏆 Daily leaderboard",
     "lb.title": "Daily leaderboard",
@@ -579,6 +583,8 @@ DB.UI = {
     "mp.results.finishedTag": "fertig",
     "mp.results.progress": "{done}/{total} Rätsel",
     "mp.exitBtn": "Raum verlassen",
+    "mp.results.shareBtn": "Rangliste teilen",
+    "mp.share.text": "🧠 Daily BrainClub — Multiplayer\n\n{standings}\n\nMachst du mit?\n{url}",
 
     "lb.viewBtn": "🏆 Tagesrangliste",
     "lb.title": "Tagesrangliste",
@@ -793,6 +799,8 @@ DB.UI = {
     "mp.results.finishedTag": "terminé",
     "mp.results.progress": "{done}/{total} puzzles",
     "mp.exitBtn": "Quitter la salle",
+    "mp.results.shareBtn": "Partager le classement",
+    "mp.share.text": "🧠 Daily BrainClub — multijoueur\n\n{standings}\n\nTu te joins à nous ?\n{url}",
 
     "lb.viewBtn": "🏆 Classement du jour",
     "lb.title": "Classement du jour",
@@ -1007,6 +1015,8 @@ DB.UI = {
     "mp.results.finishedTag": "listo",
     "mp.results.progress": "{done}/{total} puzles",
     "mp.exitBtn": "Salir de la sala",
+    "mp.results.shareBtn": "Comparte la clasificación",
+    "mp.share.text": "🧠 Daily BrainClub — multijugador\n\n{standings}\n\n¿Te unes?\n{url}",
 
     "lb.viewBtn": "🏆 Clasificación diaria",
     "lb.title": "Clasificación diaria",

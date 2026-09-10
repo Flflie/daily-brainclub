@@ -249,11 +249,30 @@ DB.mpFinishPuzzleStep = function (result, withinBonus) {
   DB.renderTransition(step, result, withinBonus, function () {
     mp.index++;
     if (mp.index >= mp.puzzles.length) {
+      // Finishing a multiplayer run also unlocks today's share bonus,
+      // same as completing the daily mission does.
+      var st = DB.loadState();
+      if (st.mpFinishedDate !== DB.todayStr()) {
+        st.mpFinishedDate = DB.todayStr();
+        DB.saveState(st);
+      }
       DB.renderMpResults();
     } else {
       DB.renderMpPuzzleStep();
     }
   });
+};
+
+// Spoiler-free standings summary for the "share the standings" button.
+DB.buildMpShareText = function (room, playerId) {
+  var sorted = room.players.slice().sort(function (a, b) { return b.totalScore - a.totalScore; });
+  var medals = ["🥇", "🥈", "🥉"];
+  var standings = sorted.map(function (p, i) {
+    var mark = medals[i] || (i + 1) + ".";
+    var you = p.id === playerId ? DB.t("mp.you") : "";
+    return mark + " " + p.name + you + " · " + p.totalScore;
+  }).join("\n");
+  return DB.t("mp.share.text", { standings: standings, url: DB.SHARE_URL });
 };
 
 DB.renderMpResults = function () {
@@ -290,9 +309,13 @@ DB.renderMpResults = function () {
         '<p class="muted">' + (allDone ? DB.t("mp.results.allDone") : DB.t("mp.results.waiting")) + '</p>' +
       '</div>' +
       '<div class="card" style="margin-top:14px">' + rowsHtml + '</div>' +
-      '<button class="btn secondary" id="mpExitBtn2" style="margin-top:14px">' + DB.t("mp.backHome") + '</button>';
+      '<button class="btn share" id="mpShareBtn" style="margin-top:14px">' + DB.t("mp.results.shareBtn") + '</button>' +
+      '<button class="btn secondary" id="mpExitBtn2" style="margin-top:10px">' + DB.t("mp.backHome") + '</button>';
 
     DB.bindHeader();
+    document.getElementById("mpShareBtn").addEventListener("click", function () {
+      DB.shareContent(DB.buildMpShareText(room, mp.playerId), this);
+    });
     document.getElementById("mpExitBtn2").addEventListener("click", function () {
       DB.mpStopPolling();
       DB.renderHome();

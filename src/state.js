@@ -26,7 +26,8 @@ DB.defaultState = function () {
     firstName: null,
     deviceId: null,
     colorTheme: "auto",
-    shareBonusDate: null
+    shareBonusDate: null,
+    mpFinishedDate: null
   };
 };
 
