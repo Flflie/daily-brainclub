@@ -465,7 +465,7 @@ h1, h2, h3 { margin: 0 0 8px; }
 .home-stats-row {
   display: flex;
   gap: 8px;
-  margin: 14px 0 4px;
+  margin: 14px 0 16px;
 }
 .home-stat {
   flex: 1;

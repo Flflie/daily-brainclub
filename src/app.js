@@ -84,7 +84,6 @@ DB.renderHeader = function (state) {
       '<div class="header-left">' + avatarHtml + '<div class="brand">Daily <span>BrainClub</span></div></div>' +
       '<div class="header-right">' +
         DB.homeBtn() +
-        '<div class="streak-pill">🔥 ' + state.streak + '</div>' +
         '<button class="header-share-btn" id="headerShareBtn" aria-label="' + DB.t("home.shareAppBtn") + '" title="' + DB.t("home.shareAppBtn") + '">' + DB.SHARE_ICON + '</button>' +
         '<div class="settings-wrap">' +
           '<button class="settings-toggle" id="settingsBtn" aria-label="Settings">⚙️</button>' +
