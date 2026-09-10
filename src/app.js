@@ -200,6 +200,7 @@ DB.renderHome = function () {
     '</button>' +
     '<button class="btn secondary" id="mpEntryBtn" style="margin-top:10px">' + DB.t("home.multiplayerBtn") + '</button>' +
     '<button class="btn secondary" id="lbEntryBtn" style="margin-top:10px">' + DB.t("lb.viewBtn") + '</button>' +
+    '<button class="btn share" id="shareAppBtn" style="margin-top:10px">' + DB.t("home.shareAppBtn") + '</button>' +
     '<div class="card" style="margin-top:14px">' +
       '<h3>' + DB.t("home.milestones") + '</h3>' +
       milestonesHtml +
@@ -226,6 +227,7 @@ DB.renderHome = function () {
   document.getElementById("viewAchievementsBtn").addEventListener("click", DB.renderAchievements);
   document.getElementById("mpEntryBtn").addEventListener("click", DB.renderMultiplayerHome);
   document.getElementById("lbEntryBtn").addEventListener("click", DB.renderLeaderboard);
+  document.getElementById("shareAppBtn").addEventListener("click", function () { DB.shareApp(this); });
   var cosmeticNotice = document.getElementById("cosmeticNotice");
   if (cosmeticNotice) {
     cosmeticNotice.addEventListener("click", DB.renderAchievements);
@@ -517,19 +519,66 @@ DB.buildDailyShareText = function (dailyScore, results, streak) {
   });
 };
 
-// Opens the OS share sheet where available (native app + most phones),
-// otherwise copies to the clipboard and confirms on the button itself.
-DB.shareDailyResult = function (text, btn) {
-  if (navigator.share) {
-    navigator.share({ text: text }).catch(function () {});
+// Brief message that floats up from the bottom and fades out.
+DB.flashToast = function (msg) {
+  var el = document.createElement("div");
+  el.className = "flash-toast";
+  el.textContent = msg;
+  document.body.appendChild(el);
+  requestAnimationFrame(function () { el.classList.add("show"); });
+  setTimeout(function () {
+    el.classList.remove("show");
+    setTimeout(function () { el.remove(); }, 300);
+  }, 3400);
+};
+
+// One bonus album card per day for sharing (a result OR the app itself).
+// We can't verify a share actually completed - the OS returns nothing
+// useful on Android - so the once-a-day cap is the abuse guard, and the
+// bonus only lands if you've actually played today's mission, which
+// keeps it a completion nudge rather than a way to farm cards.
+DB.rewardShare = function () {
+  var state = DB.loadState();
+  var today = DB.todayStr();
+  if (state.shareBonusDate === today) return;
+  if (!DB.hasPlayedToday()) {
+    DB.flashToast(DB.t("share.bonusNeedsPlay"));
     return;
   }
+  state.shareBonusDate = today;
+  DB.saveState(state);
+  DB.awardDailyCards(1);
+  DB.flashToast(DB.t("share.bonusToast"));
+};
+
+// Opens the OS share sheet where available (native app via the Capacitor
+// plugin, mobile browsers via the Web Share API), otherwise copies to the
+// clipboard and confirms on the button. Grants the daily share bonus once
+// the share (or copy) has gone through.
+DB.shareContent = function (text, btn) {
+  var cap = window.Capacitor;
+  var sharePromise = null;
+  if (cap && cap.Plugins && cap.Plugins.Share) {
+    // navigator.share is NOT supported inside the Android WebView, so the
+    // plugin is the only route to WhatsApp/Messenger/etc. in the app.
+    sharePromise = cap.Plugins.Share.share({ text: text });
+  } else if (navigator.share) {
+    sharePromise = navigator.share({ text: text });
+  }
+
+  if (sharePromise) {
+    sharePromise.then(function () { DB.rewardShare(); }).catch(function () {});
+    return;
+  }
+
   var confirmCopied = function () {
-    if (!btn) return;
-    var original = btn.textContent;
-    btn.textContent = DB.t("share.copied");
-    btn.disabled = true;
-    setTimeout(function () { btn.textContent = original; btn.disabled = false; }, 2600);
+    if (btn) {
+      var original = btn.textContent;
+      btn.textContent = DB.t("share.copied");
+      btn.disabled = true;
+      setTimeout(function () { btn.textContent = original; btn.disabled = false; }, 2600);
+    }
+    DB.rewardShare();
   };
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(confirmCopied).catch(confirmCopied);
@@ -544,6 +593,11 @@ DB.shareDailyResult = function (text, btn) {
   try { document.execCommand("copy"); } catch (e) {}
   document.body.removeChild(ta);
   confirmCopied();
+};
+
+// Promo blurb + short link, for the "share the app" button on the home screen.
+DB.shareApp = function (btn) {
+  DB.shareContent(DB.t("share.appText", { url: DB.SHARE_URL }), btn);
 };
 
 DB.finishRun = function () {
@@ -613,7 +667,7 @@ DB.finishRun = function () {
 
   var shareText = DB.buildDailyShareText(dailyScore, rs.results, outcome.state.streak);
   document.getElementById("shareResultBtn").addEventListener("click", function () {
-    DB.shareDailyResult(shareText, this);
+    DB.shareContent(shareText, this);
   });
   document.getElementById("backHome").addEventListener("click", DB.renderHome);
   document.getElementById("viewAlbumsBtn").addEventListener("click", DB.renderAlbums);

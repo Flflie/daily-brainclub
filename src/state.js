@@ -25,7 +25,8 @@ DB.defaultState = function () {
     language: "nl",
     firstName: null,
     deviceId: null,
-    colorTheme: "auto"
+    colorTheme: "auto",
+    shareBonusDate: null
   };
 };
 
