@@ -226,6 +226,8 @@ DB.renderHome = function () {
       '<h3>' + DB.t("home.stats") + '</h3>' +
       '<div class="muted">' + DB.t("home.totalRuns", { n: state.totalRuns }) + '</div>' +
       '<div class="muted">' + DB.t("home.badgesEarned", { n: state.badges.length ? state.badges.length : DB.t("home.badgesNone") }) + '</div>' +
+      '<div class="muted">' + DB.t("home.shields", { n: state.streakShields || 0 }) + '</div>' +
+      (state.streakShields ? '' : '<div class="muted" style="font-size:12px">' + DB.t("home.shieldsHint") + '</div>') +
       '<button class="btn secondary" id="viewAchievementsBtn" style="margin-top:12px">' + DB.t("home.viewAchievements") + '</button>' +
     '</div>';
 
@@ -557,9 +559,11 @@ DB.rewardShare = function () {
     return;
   }
   state.shareBonusDate = today;
+  var gotShield = state.streakShields < DB.STREAK_SHIELD_MAX;
+  if (gotShield) state.streakShields += 1;
   DB.saveState(state);
   DB.awardDailyCards(1);
-  DB.flashToast(DB.t("share.bonusToast"));
+  DB.flashToast(DB.t(gotShield ? "share.bonusToastShield" : "share.bonusToast"));
   // Let the bonus toast land, then show one ad and return to the
   // screen the player was on.
   setTimeout(function () {
@@ -641,6 +645,7 @@ DB.finishRun = function () {
 
   var bonusBanner = allBonus ? '<div class="badge-toast">' + DB.t("run.bonusBanner") + '</div>' : "";
   var challengeBanner = outcome.challengeCompleted ? '<div class="badge-toast">' + DB.t("run.challengeBanner") + '</div>' : "";
+  var streakSavedBanner = outcome.state.streakSaved ? '<div class="badge-toast">' + DB.t("run.streakSaved") + '</div>' : "";
 
   var cardsHtml = "";
   if (cardResult.drawn.length) {
@@ -672,6 +677,7 @@ DB.finishRun = function () {
       '<div class="muted">' + DB.t("run.streakLabel", { n: outcome.state.streak, unit: DB.dayWord(outcome.state.streak) }) + '</div>' +
     '</div>' +
     '<button class="btn share" id="shareResultBtn">' + DB.t("run.shareBtn") + '</button>' +
+    streakSavedBanner +
     bonusBanner +
     challengeBanner +
     badgeHtml +

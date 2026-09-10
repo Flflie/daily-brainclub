@@ -2,6 +2,9 @@ var DB = window.DB || {};
 
 DB.STORAGE_KEY = "dailyBrainclubState";
 DB.PUZZLE_SECONDS = 120;
+// A streak shield saves your streak if you miss exactly one day.
+// Earned by sharing (once/day); you can hold at most this many.
+DB.STREAK_SHIELD_MAX = 3;
 
 DB.todayStr = function () {
   var d = new Date();
@@ -27,7 +30,8 @@ DB.defaultState = function () {
     deviceId: null,
     colorTheme: "auto",
     shareBonusDate: null,
-    mpFinishedDate: null
+    mpFinishedDate: null,
+    streakShields: 0
   };
 };
 
@@ -660,10 +664,16 @@ DB.recordRunCompleted = function (dailyScore, allBonus) {
     return { state: state, newBadges: [], challengeCompleted: false };
   }
 
+  state.streakSaved = false;
   if (state.lastPlayedDate) {
     var gap = DB.daysBetween(state.lastPlayedDate, today);
     if (gap === 1) {
       state.streak += 1;
+    } else if (gap === 2 && state.streakShields > 0) {
+      // Missed exactly one day - a streak shield covers it.
+      state.streakShields -= 1;
+      state.streak += 1;
+      state.streakSaved = true;
     } else if (gap > 1) {
       state.streak = 1;
       state.streakStartDate = today;
