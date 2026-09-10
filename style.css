@@ -407,6 +407,10 @@ h1, h2, h3 { margin: 0 0 8px; }
   box-shadow: none;
   border: 1px solid rgba(220, 38, 38, 0.25);
 }
+.btn.share {
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+}
 .btn:disabled {
   opacity: 0.4;
   cursor: default;

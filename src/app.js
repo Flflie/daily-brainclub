@@ -601,12 +601,12 @@ DB.finishRun = function () {
       '<div class="result-score">' + dailyScore + '</div>' +
       '<div class="muted">' + DB.t("run.streakLabel", { n: outcome.state.streak, unit: DB.dayWord(outcome.state.streak) }) + '</div>' +
     '</div>' +
+    '<button class="btn share" id="shareResultBtn">' + DB.t("run.shareBtn") + '</button>' +
     bonusBanner +
     challengeBanner +
     badgeHtml +
     cardsHtml +
     '<div class="result-breakdown">' + rows + '</div>' +
-    '<button class="btn" id="shareResultBtn">' + DB.t("run.shareBtn") + '</button>' +
     '<button class="btn secondary" id="lbViewBtn" style="margin-top:10px">' + DB.t("lb.viewBtn") + '</button>' +
     '<button class="btn secondary" id="viewAlbumsBtn" style="margin-top:10px">' + DB.t("run.viewAlbums") + '</button>' +
     '<button class="btn secondary" id="backHome" style="margin-top:10px">' + DB.t("run.backHome") + '</button>';
