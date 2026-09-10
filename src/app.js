@@ -263,7 +263,7 @@ DB.renderPracticeStep = function () {
   ps.abandoning = false;
 
   DB.appRoot.innerHTML =
-    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="header-right">' + DB.homeBtn() + '<div class="streak-pill">' + ps.def.emoji + ' ' + DB.t("practice.label") + '</div></div></div>' +
+    '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="header-right">' + DB.homeBtn() + '</div></div>' +
     '<div class="card" id="puzzleContainer"></div>' +
     '<button class="btn" id="practiceExit" style="margin-top:12px">' + DB.t("run.backHome") + '</button>';
 
@@ -545,11 +545,12 @@ DB.flashToast = function (msg) {
 };
 
 // The daily "share loop": the first share of the day (after you've
-// played) gives one bonus album card AND shows one ad. Both are capped
-// to once per calendar day via shareBonusDate - we can't verify a share
-// actually completed (the OS returns nothing useful on Android), so the
-// once-a-day cap plus the "must have played" check is what stops it
-// being farmed or turned into an ad flood by tapping share repeatedly.
+// played, and while you're below the shield cap) earns one streak
+// shield and then shows one ad. Capped to once per calendar day via
+// shareBonusDate - we can't verify a share actually completed (the OS
+// returns nothing useful on Android), so the once-a-day cap plus the
+// "must have played" check is what stops it being farmed or turned
+// into an ad flood by tapping share repeatedly.
 DB.rewardShare = function () {
   var state = DB.loadState();
   var today = DB.todayStr();
@@ -558,14 +559,18 @@ DB.rewardShare = function () {
     DB.flashToast(DB.t("share.bonusNeedsPlay"));
     return;
   }
+  if (state.streakShields >= DB.STREAK_SHIELD_MAX) {
+    // Already at the cap - nothing to give, so don't burn today's
+    // claim or show an ad. They can earn again after spending one.
+    DB.flashToast(DB.t("share.shieldsMaxed"));
+    return;
+  }
   state.shareBonusDate = today;
-  var gotShield = state.streakShields < DB.STREAK_SHIELD_MAX;
-  if (gotShield) state.streakShields += 1;
+  state.streakShields += 1;
   DB.saveState(state);
-  DB.awardDailyCards(1);
-  DB.flashToast(DB.t(gotShield ? "share.bonusToastShield" : "share.bonusToast"));
-  // Let the bonus toast land, then show one ad and return to the
-  // screen the player was on.
+  DB.flashToast(DB.t("share.shieldEarned"));
+  // Let the toast land, then show one ad and return to the screen
+  // the player was on.
   setTimeout(function () {
     DB.renderAdBreak(function () { (DB.lastRender || DB.renderHome)(); });
   }, 1600);
