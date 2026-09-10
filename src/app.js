@@ -253,7 +253,7 @@ DB.renderPracticeStep = function () {
   DB.appRoot.innerHTML =
     '<div class="header"><div class="brand">Daily <span>BrainClub</span></div><div class="header-right">' + DB.homeBtn() + '<div class="streak-pill">' + ps.def.emoji + ' ' + DB.t("practice.label") + '</div></div></div>' +
     '<div class="card" id="puzzleContainer"></div>' +
-    '<button class="btn secondary" id="practiceExit" style="margin-top:12px">' + DB.t("run.backHome") + '</button>';
+    '<button class="btn" id="practiceExit" style="margin-top:12px">' + DB.t("run.backHome") + '</button>';
 
   var container = document.getElementById("puzzleContainer");
   var finished = false;
@@ -286,7 +286,7 @@ DB.renderPracticeResult = function (def, result) {
       '<div class="result-score">' + result.score + '</div>' +
       '<p class="muted">' + result.detail + '</p>' +
       '<button class="btn" id="practiceAgain">' + DB.t("practice.again") + '</button>' +
-      '<button class="btn secondary" id="practiceHome" style="margin-top:10px">' + DB.t("run.backHome") + '</button>' +
+      '<button class="btn" id="practiceHome" style="margin-top:10px">' + DB.t("run.backHome") + '</button>' +
     '</div>';
 
   document.getElementById("practiceAgain").addEventListener("click", function () { DB.startPractice(def); });
@@ -350,7 +350,7 @@ DB.renderAchievements = function () {
     '<div class="card"><h2>' + DB.t("ach.title") + '</h2><p class="muted">' + DB.t("ach.subtitle") + '</p></div>' +
     cosmeticsHtml +
     (sectionsHtml || '<div class="card"><p class="muted">' + DB.t("ach.none") + '</p></div>') +
-    '<button class="btn secondary" id="backHome">' + DB.t("ach.back") + '</button>' +
+    '<button class="btn" id="backHome">' + DB.t("ach.back") + '</button>' +
     '<div class="card" style="margin-top:14px">' +
       '<h3>' + DB.t("ach.resetTitle") + '</h3>' +
       '<p class="muted">' + DB.t("ach.resetHint") + '</p>' +

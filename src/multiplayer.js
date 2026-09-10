@@ -50,7 +50,7 @@ DB.renderMultiplayerHome = function () {
         '</div>' +
       '</div>' +
     '</div>' +
-    '<button class="btn secondary" id="mpBackHome" style="margin-top:12px">' + DB.t("mp.backHome") + '</button>';
+    '<button class="btn" id="mpBackHome" style="margin-top:12px">' + DB.t("mp.backHome") + '</button>';
 
   DB.bindHeader();
 
@@ -310,7 +310,7 @@ DB.renderMpResults = function () {
       '</div>' +
       '<div class="card" style="margin-top:14px">' + rowsHtml + '</div>' +
       '<button class="btn share" id="mpShareBtn" style="margin-top:14px">' + DB.t("mp.results.shareBtn") + '</button>' +
-      '<button class="btn secondary" id="mpExitBtn2" style="margin-top:10px">' + DB.t("mp.backHome") + '</button>';
+      '<button class="btn" id="mpExitBtn2" style="margin-top:10px">' + DB.t("mp.backHome") + '</button>';
 
     DB.bindHeader();
     document.getElementById("mpShareBtn").addEventListener("click", function () {

@@ -59,7 +59,7 @@ DB.renderLeaderboard = function () {
       '<p class="muted">' + DB.t("lb.subtitle") + "</p>" +
     "</div>" +
     '<div class="card" style="margin-top:14px" id="lbList"><p class="muted">…</p></div>' +
-    '<button class="btn secondary" id="lbBack" style="margin-top:14px">' + DB.t("lb.back") + "</button>";
+    '<button class="btn" id="lbBack" style="margin-top:14px">' + DB.t("lb.back") + "</button>";
 
   DB.bindHeader();
   document.getElementById("lbBack").addEventListener("click", function () {

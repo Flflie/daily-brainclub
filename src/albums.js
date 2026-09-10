@@ -167,7 +167,7 @@ DB.renderAlbums = function () {
       '<p class="muted">' + DB.t("albums.subtitle") + '</p>' +
       '<div class="album-grid">' + tiles + '</div>' +
     '</div>' +
-    '<button class="btn secondary" id="backHome">' + DB.t("ach.back") + '</button>';
+    '<button class="btn" id="backHome">' + DB.t("ach.back") + '</button>';
 
   DB.bindHeader();
   document.querySelectorAll(".album-tile").forEach(function (el) {
