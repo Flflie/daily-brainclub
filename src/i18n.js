@@ -125,7 +125,7 @@ DB.UI = {
     "home.badgesEarned": "Badges verdiend: {n}",
     "home.badgesNone": "nog geen",
     "home.viewAchievements": "Bekijk prestaties",
-    "home.practiceHint": "Tik op een puzzel om los te oefenen, buiten de dagelijkse missie om.",
+    "home.practiceHint": "Tik op een puzzel om te spelen, buiten de dagelijkse missie om.",
     "practice.label": "Oefenen",
     "practice.again": "Nog een keer",
     "home.multiplayerBtn": "🎮 Multiplayer",
