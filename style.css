@@ -462,6 +462,24 @@ h1, h2, h3 { margin: 0 0 8px; }
 .puzzle-tile.practice { cursor: pointer; transition: transform 0.12s ease; }
 .puzzle-tile.practice:active { transform: scale(0.96); }
 .practice-hint { margin-top: 10px; font-size: 12px; }
+.home-stats-row {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+.home-stat {
+  flex: 1;
+  background: var(--surface-2);
+  border-radius: 12px;
+  padding: 10px 4px;
+  text-align: center;
+  font-size: 15px;
+}
+.home-stat b { font-weight: 800; }
+.home-mission-line {
+  text-align: center;
+  margin: 8px 0 10px;
+}
 .puzzle-tile .soon {
   color: var(--text-dim);
   font-size: 11px;
