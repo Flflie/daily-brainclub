@@ -152,6 +152,55 @@ DB.renderAdBannerContent = function () {
     '<span class="ad-banner-title">' + DB.t(creative.titleKey) + '</span>';
 };
 
+// The AdMob plugin destroys the banner completely on ANY failed ad request
+// (BannerExecutor.onAdFailedToLoad: removeView + destroy + mAdView = null),
+// including the automatic refresh a minute after the first ad. Without a
+// retry the banner then stays gone until the app restarts. So after a failure
+// we ask for a fresh banner ourselves, waiting longer each time so a stretch
+// without fill doesn't become a stream of requests.
+DB.BANNER_RETRY_MS = [60000, 120000, 300000, 600000];
+DB.bannerRetryStep = 0;
+DB.bannerRetryTimer = null;
+DB.bannerWaitingVisible = false;
+
+DB.showNativeBanner = function () {
+  return window.Capacitor.Plugins.AdMob.showBanner({
+    adId: DB.ADMOB_BANNER_ID,
+    adSize: "ADAPTIVE_BANNER",
+    position: "BOTTOM_CENTER",
+    margin: 0
+  });
+};
+
+DB.retryBanner = function () {
+  DB.bannerRetryTimer = null;
+  // No ad requests for an app that isn't on screen: wait until it is again.
+  if (document.visibilityState === "hidden") {
+    if (!DB.bannerWaitingVisible) {
+      DB.bannerWaitingVisible = true;
+      document.addEventListener("visibilitychange", function onVisible() {
+        if (document.visibilityState !== "visible") return;
+        document.removeEventListener("visibilitychange", onVisible);
+        DB.bannerWaitingVisible = false;
+        DB.retryBanner();
+      });
+    }
+    return;
+  }
+  DB.showNativeBanner().catch(function (err) {
+    console.warn("Native banner retry failed", err);
+    DB.scheduleBannerRetry();
+  });
+};
+
+DB.scheduleBannerRetry = function () {
+  if (DB.bannerRetryTimer) return; // one retry at a time
+  var delays = DB.BANNER_RETRY_MS;
+  var delay = delays[Math.min(DB.bannerRetryStep, delays.length - 1)];
+  DB.bannerRetryStep++;
+  DB.bannerRetryTimer = setTimeout(DB.retryBanner, delay);
+};
+
 DB.initAdBanner = function () {
   if (DB.isNativeApp()) {
     // The native banner is a real OS-level view drawn by AdMob itself - the
@@ -172,14 +221,26 @@ DB.initAdBanner = function () {
       }
     });
 
+    // A banner that loaded fine: forget earlier failures, so the next
+    // problem starts again at the short wait.
+    AdMob.addListener("bannerAdLoaded", function () {
+      DB.bannerRetryStep = 0;
+    });
+    // The plugin has just destroyed the banner. Give most of the reserved
+    // space back and try again later; bannerAdSizeChanged restores the
+    // exact clearance as soon as a banner shows up again.
+    AdMob.addListener("bannerAdFailedToLoad", function (err) {
+      console.warn("Native banner failed to load", err);
+      document.documentElement.style.setProperty("--ad-clearance", "16px");
+      DB.scheduleBannerRetry();
+    });
+
     DB.initNativeAdMob().then(function () {
-      return AdMob.showBanner({
-        adId: DB.ADMOB_BANNER_ID,
-        adSize: "ADAPTIVE_BANNER",
-        position: "BOTTOM_CENTER",
-        margin: 0
-      });
-    }).catch(function (err) { console.warn("Native banner failed", err); });
+      return DB.showNativeBanner();
+    }).catch(function (err) {
+      console.warn("Native banner failed", err);
+      DB.scheduleBannerRetry();
+    });
     return;
   }
 
