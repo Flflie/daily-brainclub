@@ -81,7 +81,9 @@ var server = http.createServer(function (req, res) {
     return;
   }
 
-  var filePath = p === "/" ? "/index.html" : p;
+  // "/play" is the link people share: a small page with link-preview tags
+  // that forwards to the Play Store (see play.html).
+  var filePath = p === "/" ? "/index.html" : (p === "/play" ? "/play.html" : p);
   filePath = path.join(ROOT, filePath);
   var resolved = path.normalize(filePath);
   if (resolved.indexOf(ROOT) !== 0) {

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily BrainClub 🧠 7 mini-puzzels per dag</title>
+<meta name="description" content="Elke dag 7 mini-puzzels · 7 mini puzzles every day · Gratis op Google Play / Free on Google Play">
+
+<!-- Link preview (Facebook, WhatsApp, Messenger, ...). These tags are the whole
+     point of this page: the crawler reads them here, on one simple page, instead
+     of following a shortener's redirect chain to the Play Store. og:url must be
+     THIS page or Facebook re-scrapes the target and drops our card. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daily BrainClub">
+<meta property="og:title" content="Daily BrainClub 🧠 7 mini-puzzels per dag">
+<meta property="og:description" content="Elke dag 7 mini-puzzels · 7 mini puzzles every day · Gratis op Google Play / Free on Google Play">
+<meta property="og:image" content="https://daily-brainclub.onrender.com/feature-graphic.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="Daily BrainClub">
+<meta property="og:url" content="https://daily-brainclub.onrender.com/play">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daily BrainClub 🧠 7 mini-puzzels per dag">
+<meta name="twitter:description" content="Elke dag 7 mini-puzzels · 7 mini puzzles every day · Gratis op Google Play / Free on Google Play">
+<meta name="twitter:image" content="https://daily-brainclub.onrender.com/feature-graphic.png">
+
+<link rel="icon" href="/icon-32.png">
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(160deg, #f3e8ff, #c4b5fd 55%, #93c5fd);
+    color: #2a2250;
+    text-align: center;
+  }
+  .box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 340px;
+    margin: 16px;
+    box-shadow: 0 10px 30px rgba(76, 29, 149, 0.18);
+  }
+  .box img { width: 84px; height: 84px; border-radius: 20px; }
+  h1 { font-size: 22px; margin: 14px 0 4px; }
+  p { margin: 0 0 18px; color: #6b6590; font-size: 14px; }
+  a.btn {
+    display: block;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 14px 20px;
+    border-radius: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="box">
+  <img src="/icon-192.png" alt="Daily BrainClub">
+  <h1>Daily BrainClub</h1>
+  <p>Elke dag 7 mini-puzzels · 7 mini puzzles every day</p>
+  <a class="btn" id="go" href="https://play.google.com/store/apps/details?id=com.florence.dailybrainclub&amp;referrer=utm_source%3Dbrainclub_share%26utm_medium%3Dlink">Open in Google Play</a>
+</div>
+<script>
+  // Visitors are forwarded straight away; crawlers don't run scripts and
+  // just read the tags above. The button is the fallback.
+  setTimeout(function () {
+    window.location.replace(document.getElementById("go").href);
+  }, 350);
+</script>
+</body>
+</html>

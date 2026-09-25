@@ -533,7 +533,10 @@ DB.renderTransition = function (step, result, withinBonus, onContinue) {
 };
 
 // Short, memorable link that lands on the Play Store listing (no "florence" in it).
-DB.SHARE_URL = "https://tinyurl.com/dailybrainclub";
+// Our own preview page (app/play.html) rather than a shortener: TinyURL adds a
+// tracking hop (redirect.viglink.com) before the Play Store, and Facebook then
+// showed a bare "tinyurl.com" link without the app image.
+DB.SHARE_URL = "https://daily-brainclub.onrender.com/play";
 
 // Spoiler-free result summary, Wordle-style: an abstract row of marks
 // (⚡ = solved inside the 2-min bonus, ⬜ = solved but slower) plus the score
