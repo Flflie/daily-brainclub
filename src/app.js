@@ -73,6 +73,12 @@ DB.renderHeader = function (state) {
             '<button class="link-btn" id="settingsEditName">' + state.firstName + ' · ' + DB.t("settings.editName") + '</button>' +
           '</div>'
         : "") +
+      (DB.isNativeApp()
+        ? '<div class="settings-row">' +
+            '<span>' + DB.t("settings.review") + '</span>' +
+            '<button class="link-btn" id="settingsReview">' + DB.t("settings.reviewAction") + '</button>' +
+          '</div>'
+        : "") +
       '<div class="settings-row">' +
         '<span>' + DB.t("settings.contact") + '</span>' +
         '<a class="link-btn" href="mailto:waterpixels2@gmail.com">' + DB.t("settings.contactAction") + '</a>' +
@@ -640,6 +646,65 @@ DB.shareApp = function (btn) {
   DB.shareContent(DB.t("share.appText", { url: DB.SHARE_URL }), btn);
 };
 
+// --- Review prompt (native app only) ---
+
+// Opens the Play Store listing. Inside the Capacitor app, any URL on
+// another host is handed to Android (Bridge.launchIntent -> ACTION_VIEW),
+// so a plain navigation lands on the Play Store without leaving the
+// WebView. Tapping it counts as done: we never ask again after that.
+DB.openReviewPage = function () {
+  var state = DB.loadState();
+  if (!state.reviewDone) {
+    state.reviewDone = true;
+    DB.saveState(state);
+  }
+  if (DB.isNativeApp()) {
+    window.location.href = DB.REVIEW_URL;
+  } else {
+    window.open(DB.REVIEW_URL, "_blank");
+  }
+};
+
+DB.shouldAskForReview = function (state) {
+  if (!DB.isNativeApp()) return false;
+  if (state.reviewDone) return false;
+  if (state.totalRuns < DB.REVIEW_MIN_RUNS) return false;
+  if (state.reviewAskCount >= DB.REVIEW_MAX_ASKS) return false;
+  if (state.reviewAskDate && DB.daysBetween(state.reviewAskDate, DB.todayStr()) < DB.REVIEW_RETRY_DAYS) return false;
+  return true;
+};
+
+// Card for the results screen, or "" when we shouldn't ask. Showing it
+// counts as an ask straight away, so ignoring it can never make it come
+// back day after day - at most REVIEW_MAX_ASKS times in total.
+DB.reviewCardHtml = function () {
+  var state = DB.loadState();
+  if (!DB.shouldAskForReview(state)) return "";
+  state.reviewAskCount += 1;
+  state.reviewAskDate = DB.todayStr();
+  DB.saveState(state);
+  return (
+    '<div class="card center review-card" id="reviewCard">' +
+      '<h3>' + DB.t("review.title") + '</h3>' +
+      '<p class="muted">' + DB.t("review.text") + '</p>' +
+      '<div class="review-actions">' +
+        '<button class="btn" id="reviewNowBtn">' + DB.t("review.now") + '</button>' +
+        '<button class="btn secondary" id="reviewLaterBtn">' + DB.t("review.later") + '</button>' +
+      '</div>' +
+    '</div>'
+  );
+};
+
+DB.bindReviewCard = function () {
+  var nowBtn = document.getElementById("reviewNowBtn");
+  if (!nowBtn) return;
+  nowBtn.addEventListener("click", DB.openReviewPage);
+  document.getElementById("reviewLaterBtn").addEventListener("click", function () {
+    var card = document.getElementById("reviewCard");
+    if (card) card.remove();
+  });
+};
+
 DB.finishRun = function () {
   var rs = DB.runState;
   var dailyScore = Math.round(rs.results.reduce(function (sum, r) { return sum + r.score; }, 0) / rs.results.length);
@@ -666,6 +731,9 @@ DB.finishRun = function () {
   var bonusBanner = allBonus ? '<div class="badge-toast">' + DB.t("run.bonusBanner") + '</div>' : "";
   var challengeBanner = outcome.challengeCompleted ? '<div class="badge-toast">' + DB.t("run.challengeBanner") + '</div>' : "";
   var streakSavedBanner = outcome.state.streakSaved ? '<div class="badge-toast">' + DB.t("run.streakSaved") + '</div>' : "";
+  // Must run after recordRunCompleted/awardDailyCards above: it reads the
+  // saved totalRuns and writes the ask counters back to the saved state.
+  var reviewCard = DB.reviewCardHtml();
 
   var cardsHtml = "";
   if (cardResult.drawn.length) {
@@ -697,6 +765,7 @@ DB.finishRun = function () {
       '<div class="muted">' + DB.t("run.streakLabel", { n: outcome.state.streak, unit: DB.dayWord(outcome.state.streak) }) + '</div>' +
     '</div>' +
     '<button class="btn share" id="shareResultBtn">' + DB.t("run.shareBtn") + '</button>' +
+    reviewCard +
     streakSavedBanner +
     bonusBanner +
     challengeBanner +
@@ -711,6 +780,7 @@ DB.finishRun = function () {
   document.getElementById("shareResultBtn").addEventListener("click", function () {
     DB.shareContent(shareText, this);
   });
+  DB.bindReviewCard();
   document.getElementById("backHome").addEventListener("click", DB.renderHome);
   document.getElementById("viewAlbumsBtn").addEventListener("click", DB.renderAlbums);
   document.getElementById("lbViewBtn").addEventListener("click", DB.renderLeaderboard);

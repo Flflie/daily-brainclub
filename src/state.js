@@ -6,6 +6,14 @@ DB.PUZZLE_SECONDS = 120;
 // Earned by sharing (once/day); you can hold at most this many.
 DB.STREAK_SHIELD_MAX = 3;
 
+// Review prompt (native app only). We ask after a few completed missions,
+// at most REVIEW_MAX_ASKS times, at least REVIEW_RETRY_DAYS apart. Play
+// policy: never reward a review and never only ask happy players.
+DB.REVIEW_URL = "https://play.google.com/store/apps/details?id=com.florence.dailybrainclub";
+DB.REVIEW_MIN_RUNS = 3;
+DB.REVIEW_MAX_ASKS = 2;
+DB.REVIEW_RETRY_DAYS = 14;
+
 DB.todayStr = function () {
   var d = new Date();
   return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -32,7 +40,10 @@ DB.defaultState = function () {
     shareBonusDate: null,
     mpFinishedDate: null,
     streakShields: 0,
-    recentPuzzleWords: {}
+    recentPuzzleWords: {},
+    reviewDone: false,
+    reviewAskCount: 0,
+    reviewAskDate: null
   };
 };
 

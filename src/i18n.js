@@ -71,6 +71,10 @@ DB.bindHeader = function () {
       DB.renderWelcome();
     });
   }
+  var reviewBtn = document.getElementById("settingsReview");
+  if (reviewBtn) {
+    reviewBtn.addEventListener("click", DB.openReviewPage);
+  }
   var headerShareBtn = document.getElementById("headerShareBtn");
   if (headerShareBtn) {
     headerShareBtn.addEventListener("click", function () { DB.shareApp(this); });
@@ -103,6 +107,12 @@ DB.UI = {
     "settings.editName": "wijzigen",
     "settings.contact": "Contact",
     "settings.contactAction": "e-mail ons",
+    "settings.review": "Review",
+    "settings.reviewAction": "⭐ beoordeel de app",
+    "review.title": "Bevalt Daily BrainClub?",
+    "review.text": "Een korte review in de Play Store helpt ons enorm en helpt anderen de app te vinden.",
+    "review.now": "⭐ Beoordelen",
+    "review.later": "Later",
 
     "home.missionTitle": "Dagelijkse missie",
     "home.playedToday": "Je hebt vandaag al gespeeld. Kom morgen terug voor een nieuwe missie!",
@@ -326,6 +336,12 @@ DB.UI = {
     "settings.editName": "edit",
     "settings.contact": "Contact",
     "settings.contactAction": "email us",
+    "settings.review": "Review",
+    "settings.reviewAction": "⭐ rate the app",
+    "review.title": "Enjoying Daily BrainClub?",
+    "review.text": "A quick review on the Play Store really helps us, and helps others find the app.",
+    "review.now": "⭐ Review",
+    "review.later": "Later",
 
     "home.missionTitle": "Daily mission",
     "home.playedToday": "You've already played today. Come back tomorrow for a new mission!",
@@ -549,6 +565,12 @@ DB.UI = {
     "settings.editName": "ändern",
     "settings.contact": "Kontakt",
     "settings.contactAction": "E-Mail senden",
+    "settings.review": "Bewertung",
+    "settings.reviewAction": "⭐ App bewerten",
+    "review.title": "Gefällt dir Daily BrainClub?",
+    "review.text": "Eine kurze Bewertung im Play Store hilft uns sehr und hilft anderen, die App zu finden.",
+    "review.now": "⭐ Bewerten",
+    "review.later": "Später",
 
     "home.missionTitle": "Tägliche Mission",
     "home.playedToday": "Du hast heute schon gespielt. Komm morgen für eine neue Mission zurück!",
@@ -772,6 +794,12 @@ DB.UI = {
     "settings.editName": "modifier",
     "settings.contact": "Contact",
     "settings.contactAction": "nous écrire",
+    "settings.review": "Avis",
+    "settings.reviewAction": "⭐ noter l'appli",
+    "review.title": "Daily BrainClub te plaît ?",
+    "review.text": "Un court avis sur le Play Store nous aide énormément et aide d'autres personnes à trouver l'appli.",
+    "review.now": "⭐ Donner un avis",
+    "review.later": "Plus tard",
 
     "home.missionTitle": "Mission du jour",
     "home.playedToday": "Tu as déjà joué aujourd'hui. Reviens demain pour une nouvelle mission !",
@@ -995,6 +1023,12 @@ DB.UI = {
     "settings.editName": "editar",
     "settings.contact": "Contacto",
     "settings.contactAction": "escríbenos",
+    "settings.review": "Reseña",
+    "settings.reviewAction": "⭐ valorar la app",
+    "review.title": "¿Te gusta Daily BrainClub?",
+    "review.text": "Una reseña breve en Play Store nos ayuda muchísimo y ayuda a otros a encontrar la app.",
+    "review.now": "⭐ Valorar",
+    "review.later": "Más tarde",
 
     "home.missionTitle": "Misión diaria",
     "home.playedToday": "Ya has jugado hoy. ¡Vuelve mañana para una nueva misión!",
